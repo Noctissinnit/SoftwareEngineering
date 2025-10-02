@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="resources/css/adminberita.css">
 </head>
 <body>
+    <h1>Ini berita</h1>
     <table>
         <thead>
                 <th>Nomor</th>

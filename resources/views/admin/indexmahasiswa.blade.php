@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="resources/css/adminmahasiswa.css">
 </head>
 <body>
+    <h1>ini mahasiswa</h1>
     <table>
         <thead>
                 <th>Nomor</th>

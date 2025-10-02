@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="resources/css/adminprofildosen.css">
 </head>
 <body>
+    <h1>ini Profil Dosen</h1>
     <table>
         <thead>
                 <th>Nomor</th>
