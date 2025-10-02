@@ -1,0 +1,21 @@
+body {
+    background-color: #0074D9; /* Biru */
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+.pmb-link button {
+    background: #0074D9;
+    color: #fff;
+    padding: 18px 40px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: background 0.2s;
+}
+
+.pmb-link button:hover {
+    background: #005fa3;
+}
