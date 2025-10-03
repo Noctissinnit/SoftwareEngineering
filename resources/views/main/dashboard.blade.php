@@ -3,7 +3,7 @@
 @section('content')
     <section class="hero-section text-white" style="background: linear-gradient(135deg, #03378c 0%, #0056d2 100%); padding: 100px 0; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;">
         <div class="container text-center">
-            <h1 class="display-4 fw-bold mb-3">Program Studi Sistem Informasi</h1>
+            <h1 class="display-4 fw-bold mb-3">Program Studi Software Engineering</h1>
             <p class="lead mb-5">Mempersiapkan lulusan yang unggul, kreatif & profesional berbasis teknologi informasi.</p>
             <a href="#" class="btn btn-light text-primary px-5 py-3 fw-semibold shadow-sm" style="transition: background-color 0.3s ease;">
             Kenali Kami Lebih Dalam
@@ -44,7 +44,7 @@
                         <i class="bi bi-eye-fill me-2"></i>Visi Prodi
                     </h3>
                     <p class="fs-5" style="line-height: 1.6;">
-                        Mewujudkan Program Studi S1 Sistem Informasi yang memiliki reputasi nasional di bidang Pendidikan, penelitian dan pengabdian masyarakat berkarakter Ahlusunnah wal jamaah dalam pengembangan sistem informasi cerdas.
+                        Mewujudkan Program Studi S1 Software Engineering yang memiliki reputasi nasional di bidang Pendidikan, penelitian dan pengabdian masyarakat berkarakter Ahlusunnah wal jamaah dalam pengembangan sistem informasi cerdas.
                     </p>
                 </div>
                 <div class="col-lg-6">
