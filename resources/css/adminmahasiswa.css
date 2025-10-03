@@ -1,23 +1,18 @@
 body {
-    background-color: #0074D9; /* Biru */
-    color: #fff;
-    font-family: Arial, sans-serif;
+    background-color: #f8fbff; /* biru muda lembut */
 }
 
-table {
-    width: 80%;
-    margin: 40px auto;
-    background: #fff;
-    color: #333;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+.card {
+    border-radius: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-th {
-    background: #0074D9;
-    color: #fff;
-    padding: 16px;
-    text-align: left;
-    font-size: 1.1em;
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.1);
+}
+
+.card-header {
+    border-top-left-radius: 12px !important;
+    border-top-right-radius: 12px !important;
 }
