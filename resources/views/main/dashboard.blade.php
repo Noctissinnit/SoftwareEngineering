@@ -44,7 +44,7 @@
                         <i class="bi bi-eye-fill me-2"></i>Visi Prodi
                     </h3>
                     <p class="fs-5" style="line-height: 1.6;">
-                        Mewujudkan Program Studi S1 Sistem Informasi yang memiliki reputasi nasional di bidang Pendidikan, penelitian dan pengabdian masyarakat berkarakter Ahlusunnah wal jamaah dalam pengembangan sistem informasi cerdas.
+                        Mewujudkan Program Studi S1 Software Engineering yang memiliki reputasi nasional di bidang Pendidikan, penelitian dan pengabdian masyarakat berkarakter Ahlusunnah wal jamaah dalam pengembangan sistem informasi cerdas.
                     </p>
                 </div>
                 <div class="col-lg-6">
