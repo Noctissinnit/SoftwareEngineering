@@ -97,11 +97,50 @@
             </div>
 
             <!-- Icon Instagram -->
-            <div class="d-flex">
+                    <!-- Icon Instagram -->
+          <div class="d-flex align-items-center gap-3">
+                <!-- Instagram -->
                 <a href="https://instagram.com/" target="_blank" class="nav-link text fs-4">
                     <i class="bi bi-instagram"></i>
                 </a>
+
+                @auth
+                    <!-- Dropdown User -->
+                    <div class="dropdown">
+                        <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{{ Auth::user()->profile_photo_url ?? asset('images/se.png') }}" 
+                                alt="Profile" class="rounded-circle" width="40" height="40">
+                            <span class="ms-2 fw-semibold">{{ Auth::user()->name }}</span>
+                        </a>
+                      <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userDropdown">
+                            <li>
+                                <a class="dropdown-item" href="{{ route('profile') }}">
+                                    <i class="bi bi-person me-2"></i> Profile
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('admin.berita') }}">
+                                    <i class="bi bi-speedometer2 me-2"></i> Dashboard Admin
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item text-danger">
+                                        <i class="bi bi-box-arrow-right me-2"></i> Logout
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+
+                    </div>
+                @else
+                    <!-- Kalau belum login -->
+                    <a href="{{ route('login') }}" class="btn btn-outline-primary">Login</a>
+                @endauth
             </div>
+
         </div>
     </nav>
 
