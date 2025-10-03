@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class MainController extends Controller
 {
     public function home() {
-        return view('main.indexhome');
+        return view('main.dashboard');
     }
 
     public function berita() {

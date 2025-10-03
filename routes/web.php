@@ -7,12 +7,15 @@ use App\Http\Controllers\Admin\ProfilDosenController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::view('/', 'main.indexhome')->name('home');
+Route::view('/', 'main.dashboard')->name('home');
 Route::view('/berita', 'main.indexberita')->name('berita');
 Route::view('/dokumen', 'main.indexdokumen')->name('dokumen');
 Route::view('/mahasiswa', 'main.indexmahasiswa')->name('mahasiswa');
 Route::view('/pmb', 'main.indexpmb')->name('pmb');
 Route::view('/profildosen', 'main.indexprofildosen')->name('profildosen');
+Route::view('/sejarah-prodi', 'main.sejarah-prodi')->name('sejarah-prodi');
+Route::view('/visi-misi', 'main.visi-misi')->name('visi-misi');
+Route::view('/rps-index', 'main.rps-index')->name('rps-index');
 
 
 Route::prefix('admin')->group(function () {
