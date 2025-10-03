@@ -1,44 +1,96 @@
+<!-- resources/views/layouts/app.blade.php -->
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Admin Panel')</title>
+    <title>UPITRA Software Engineering</title>
+     <link rel="icon" type="image/x-icon" href="{{ asset('images/se.png') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+        font-family: 'Poppins', sans-serif;
+        color: #333;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'poppins', serif;
+            font-weight: 600;
+            
+        }
+
+        .navbar-nav .nav-link {
+            font-weight: 600;
+            color: #1b2b1f;
+        }
+        .navbar-nav .nav-link.active {
+            color: #03378c !important; /* hijau */
+        }
+    </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
         <div class="container">
-            <a class="navbar-brand" href="{{ url('/admin') }}">Admin Panel</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <!-- Logo -->
+            <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
+                <img src="{{ asset('images/se.png') }}" alt="Logo" height="60">
+                <div class="ms-2">
+                    <span class="d-block fw-bold">ADMIN</span>
+                    <small class="text">Software Engineering</small>
+                </div>
+            </a>
+
+            <!-- Toggle untuk mobile -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+            <!-- Menu -->
+            <div class="collapse navbar-collapse justify-content-center" id="mainNavbar">
+                <ul class="navbar-nav mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->is('admin/berita') ? 'active' : '' }}" href="{{ route('admin.berita') }}">Berita</a>
+                        <a class="nav-link {{ request()->routeIs('admin.berita') ? 'active' : '' }}" 
+                        href="{{ route('admin.berita') }}">
+                        Berita
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->is('admin/dokumen') ? 'active' : '' }}" href="{{ route('admin.dokumen') }}">Dokumen</a>
+                        <a class="nav-link {{ request()->routeIs('admin.dokumen') ? 'active' : '' }}" 
+                        href="{{ route('admin.dokumen') }}">
+                        Dokumen
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->is('admin/mahasiswa') ? 'active' : '' }}" href="{{ route('admin.mahasiswa') }}">Mahasiswa</a>
+                        <a class="nav-link {{ request()->routeIs('admin.mahasiswa') ? 'active' : '' }}" 
+                        href="{{ route('admin.mahasiswa') }}">
+                        Mahasiswa
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->is('admin/profildosen') ? 'active' : '' }}" href="{{ route('admin.profildosen') }}">Profil Dosen</a>
+                        <a class="nav-link {{ request()->routeIs('admin.profildosen') ? 'active' : '' }}" 
+                        href="{{ route('admin.profildosen') }}">
+                        Profil Dosen
+                        </a>
                     </li>
                 </ul>
+
+            </div>
+
+            <!-- Icon Instagram -->
+            <div class="d-flex">
+                <a href="https://instagram.com/" target="_blank" class="nav-link text fs-4">
+                    <i class="bi bi-instagram"></i>
+                </a>
             </div>
         </div>
     </nav>
 
-    <!-- Content -->
-    <div class="container">
+    <div class="container mt-4">
         @yield('content')
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </body>
 </html>
