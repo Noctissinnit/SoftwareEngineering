@@ -10,7 +10,7 @@
     {{-- Judul Halaman --}}
     <div class="text-center mb-5">
         <h1 class="fw-bold text-primary">Kemahasiswaan</h1>
-        <p class="text-muted">Program Studi Sistem Informasi - Universitas</p>
+        <p class="text-muted">Program Studi Software Engineering - Universitas Pignatelli Triputra</p>
     </div>
 
     {{-- Profil Lulusan --}}
@@ -25,7 +25,7 @@
 
     {{-- Daftar Mahasiswa --}}
     <div class="row g-4">
-        @foreach ([1,2,5,7] as $semester)
+        @foreach ([1,3,5,7] as $semester)
             <div class="col-md-6 col-lg-3">
                 <div class="card shadow-sm border-0 h-100">
                     <div class="card-header bg-primary text-white fw-bold">
