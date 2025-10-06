@@ -1,48 +1,66 @@
 @extends('layouts.main')
 
 @section('content')
-    <section class="profils-dosen py-5">
-        <div class="container">
-            <h1 class="mb-4" style="color: #03378c;">Daftar Profil Dosen</h1>
-            <div class="row g-4">
-                @php
-                    $dosenList = [
-                        (object)[
-                            'name' => 'Dr. Ahmad Fauzi, M.Kom',
-                            'position' => 'Dosen Senior Sistem Informasi',
-                            'photo' => 'images/dosen1.jpg'
-                        ],
-                        (object)[
-                            'name' => 'Ir. Siti Nurhaliza, M.T',
-                            'position' => 'Dosen Jaringan dan Telekomunikasi',
-                            'photo' => 'images/dosen2.jpg'
-                        ],
-                        (object)[
-                            'name' => 'Budi Santoso, S.Kom, M.Cs',
-                            'position' => 'Dosen Pemrograman dan Basis Data',
-                            'photo' => 'images/dosen3.jpg'
-                        ],
-                        (object)[
-                            'name' => 'Dr. Lina Marlina, M.Si',
-                            'position' => 'Dosen Riset dan Pengembangan Teknologi',
-                            'photo' => 'images/dosen4.jpg'
-                        ],
-                    ];
-                @endphp
+   <head>
+    ...
+    <link rel="stylesheet" href="{{ asset('css/dosen.css') }}">
+</head>
 
-                @foreach($dosenList as $dosen)
-                    <div class="col-md-6 col-lg-3 text-center">
-                        <div class="card border-0 shadow-sm">
-                            <img src="{{ asset($dosen->photo) }}" alt="{{ $dosen->name }}" class="card-img-top rounded" style="height: 250px; object-fit: cover;">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $dosen->name }}</h5>
-                                <p class="card-text text-muted">{{ $dosen->position }}</p>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
 
+<div class="container my-5">
+
+    {{-- Judul Halaman --}}
+    <div class="text-center mb-5">
+        <h1 class="fw-bold text-primary">Profil Dosen</h1>
+    </div>
+
+    {{-- Kaprodi --}}
+    <div class="card shadow kaprodi-card mb-5 mx-auto">
+        <div class="card-body text-center">
+            <img src="/images/kaprodi.png" class="img-fluid rounded-circle mb-3" width="160" alt="Kaprodi">
+            <h4 class="fw-bold text-primary">Tutus Praningki S.Kom., M.Kom</h4>
+            <p class="text-muted">Kepala Program Studi</p>
+        </div>
+    </div>
+
+    {{-- Dosen Lainnya --}}
+    <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+            <div class="card shadow dosen-card h-100 text-center">
+                <div class="card-body">
+                    <img src="/images/dosen1.png" class="img-fluid rounded-circle mb-3" width="140" alt="Dosen">
+                    <h5 class="fw-bold">Wisnu Wedanto S.Kom., M.Kom</h5>
+                </div>
             </div>
         </div>
-    </section>
+
+        <div class="col-md-6 col-lg-3">
+            <div class="card shadow dosen-card h-100 text-center">
+                <div class="card-body">
+                    <img src="/images/dosen2.png" class="img-fluid rounded-circle mb-3" width="140" alt="Dosen">
+                    <h5 class="fw-bold">Said Hirzi Hadi S.Kom., M.Eng</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <div class="card shadow dosen-card h-100 text-center">
+                <div class="card-body">
+                    <img src="/images/dosen3.png" class="img-fluid rounded-circle mb-3" width="140" alt="Dosen">
+                    <h5 class="fw-bold">Bagas Dwi Yulianto S.Kom., M.Kom</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <div class="card shadow dosen-card h-100 text-center">
+                <div class="card-body">
+                    <img src="/images/dosen4.png" class="img-fluid rounded-circle mb-3" width="140" alt="Dosen">
+                    <h5 class="fw-bold">Moyo Haddy P S.Kom., M.Kom</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
 @endsection
