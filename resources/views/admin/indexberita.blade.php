@@ -7,6 +7,54 @@
         Berita Software Engineering UPITRA
     </h1>
 
+    {{-- Tombol Tambah Acara --}}
+    <div class="mb-3 text-end">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTambahAcara">
+            Tambah Acara
+        </button>
+    </div>
+
+    {{-- Modal Tambah Acara --}}
+    <div class="modal fade" id="modalTambahAcara" tabindex="-1" aria-labelledby="modalTambahAcaraLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <form action="{{ route('acara.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalTambahAcaraLabel">Tambah Acara</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="mb-3">
+                    <label for="judul" class="form-label">Judul Acara</label>
+                    <input type="text" class="form-control" name="judul" required>
+                </div>
+                <div class="mb-3">
+                    <label for="tanggal" class="form-label">Tanggal</label>
+                    <input type="date" class="form-control" name="tanggal" required>
+                </div>
+                <div class="mb-3">
+                    <label for="penulis" class="form-label">Penulis</label>
+                    <input type="text" class="form-control" name="penulis" required>
+                </div>
+                <div class="mb-3">
+                    <label for="deskripsi" class="form-label">Deskripsi Acara</label>
+                    <textarea class="form-control" name="deskripsi" rows="3" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="foto" class="form-label">Foto Acara</label>
+                    <input type="file" class="form-control" name="foto" accept="image/*">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-primary">Simpan</button>
+              </div>
+            </div>
+        </form>
+      </div>
+    </div>
+
     {{-- Navbar Tab --}}
     <ul class="nav nav-tabs mb-4 justify-content-center" id="beritaTab" role="tablist">
         <li class="nav-item" role="presentation">
@@ -47,43 +95,74 @@
                             <th>Judul Acara</th>
                             <th>Tanggal</th>
                             <th>Penulis</th>
+                            <th>Deskripsi</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($acaras as $acara)
                         <tr>
-                            <td class="text-center">1</td>
-                            <td>Proses Perangkat Lunak</td>
-                            <td>6 Okt 2025</td>
-                            <td>Said Hirzi Hadi S.Kom., M.Eng</td>
+                            <td class="text-center">{{ $loop->iteration }}</td>
+                            <td>{{ $acara->judul }}</td>
+                            <td>{{ \Carbon\Carbon::parse($acara->tanggal)->format('d M Y') }}</td>
+                            <td>{{ $acara->penulis }}</td>
+                            <td>{{ $acara->deskripsi }}</td>
                             <td class="text-center">
-                                <button class="btn btn-sm btn-info me-1">Lihat</button>
-                                <button class="btn btn-sm btn-warning me-1">Edit</button>
-                                <button class="btn btn-sm btn-danger">Hapus</button>
+                                {{-- Tombol Edit --}}
+                                <button class="btn btn-sm btn-warning me-1" data-bs-toggle="modal" data-bs-target="#modalEditAcara{{ $acara->id }}">Edit</button>
+                                {{-- Modal Edit --}}
+                                <div class="modal fade" id="modalEditAcara{{ $acara->id }}" tabindex="-1" aria-labelledby="modalEditAcaraLabel{{ $acara->id }}" aria-hidden="true">
+                                  <div class="modal-dialog">
+                                    <form action="{{ route('acara.update', $acara->id) }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        @method('PUT')
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title" id="modalEditAcaraLabel{{ $acara->id }}">Edit Acara</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                          </div>
+                                          <div class="modal-body">
+                                            <div class="mb-3">
+                                                <label for="judul" class="form-label">Judul Acara</label>
+                                                <input type="text" class="form-control" name="judul" value="{{ $acara->judul }}" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="tanggal" class="form-label">Tanggal</label>
+                                                <input type="date" class="form-control" name="tanggal" value="{{ $acara->tanggal }}" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="penulis" class="form-label">Penulis</label>
+                                                <input type="text" class="form-control" name="penulis" value="{{ $acara->penulis }}" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="deskripsi" class="form-label">Deskripsi Acara</label>
+                                                <textarea class="form-control" name="deskripsi" rows="3" required>{{ $acara->deskripsi }}</textarea>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="foto" class="form-label">Foto Acara</label>
+                                                <input type="file" class="form-control" name="foto" accept="image/*">
+                                                @if($acara->foto)
+                                                    <img src="{{ asset('storage/' . $acara->foto) }}" alt="Foto Acara" class="img-fluid mt-2" style="max-height:120px;">
+                                                @endif
+                                            </div>
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                            <button type="submit" class="btn btn-primary">Update</button>
+                                          </div>
+                                        </div>
+                                    </form>
+                                  </div>
+                                </div>
+                                {{-- Tombol Hapus --}}
+                                <form action="{{ route('acara.destroy', $acara->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus acara ini?')">Hapus</button>
+                                </form>
                             </td>
                         </tr>
-                        <tr>
-                            <td class="text-center">2</td>
-                            <td>Jaringan Komunikasi Data</td>
-                            <td>06 Okt 2025</td>
-                            <td>Bagas Dwi Yulianto S.Kom., M.Kom</td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-info me-1">Lihat</button>
-                                <button class="btn btn-sm btn-warning me-1">Edit</button>
-                                <button class="btn btn-sm btn-danger">Hapus</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">3</td>
-                            <td>Ujian Tengah Semester</td>
-                            <td>20 Okt 2025</td>
-                            <td>Dosen Masing Masing Mata Kuliah</td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-info me-1">Lihat</button>
-                                <button class="btn btn-sm btn-warning me-1">Edit</button>
-                                <button class="btn btn-sm btn-danger">Hapus</button>
-                            </td>
-                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
