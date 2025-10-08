@@ -1,88 +1,36 @@
 @extends('layouts.main')
 
 @section('content')
-   <div class="container py-5">
+    <section class="news-listing py-5">
+        <div class="container">
+            <h1 class="mb-4" style="color: #03378c;">Berita Terbaru</h1>
+            <div class="row g-4">
+                @forelse($acaras as $acara)
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 shadow-sm border-0 rounded overflow-hidden">
+                            @if($acara->foto)
+                                <img src="{{ asset('storage/' . $acara->foto) }}" alt="{{ $acara->judul }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+                            @endif
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">
+                                    <a href="{{ route('berita.detail', $acara->id) }}" class="text-decoration-none text-dark">
+                                        {{ Str::limit($acara->judul, 70) }}
+                                    </a>
+                                </h5>
+                                <p class="card-text text-muted small mb-2">{{ \Carbon\Carbon::parse($acara->tanggal)->format('d M Y') }}</p>
+                                <p class="card-text flex-grow-1">{{ Str::limit(strip_tags($acara->deskripsi), 120) }}</p>
+                                <a href="{{ route('berita.detail', $acara->id) }}" class="mt-auto btn btn-primary">Baca Selengkapnya</a>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <p>Tidak ada berita acara tersedia saat ini.</p>
+                @endforelse
+            </div>
 
-    <h1 class="text-center text-primary mb-5">
-        Berita Software Engineering UPITRA
-    </h1>
-
-    {{-- Visi Misi --}}
-    <section class="mb-5">
-        <h2 class="text-primary">Visi & Misi</h2>
-        <p><strong>Visi:</strong> Menjadi program studi unggulan di bidang Software Engineering yang berdaya saing nasional dan internasional.</p>
-        <p><strong>Misi:</strong></p>
-        <ul>
-            <li>Menyelenggarakan pendidikan berkualitas di bidang rekayasa perangkat lunak.</li>
-            <li>Mengembangkan penelitian inovatif dan aplikatif.</li>
-            <li>Berperan aktif dalam pengabdian kepada masyarakat berbasis teknologi.</li>
-        </ul>
-    </section>
-
-    {{-- Akreditasi --}}
-    <section class="mb-5">
-        <h2 class="text-primary">Akreditasi Program Studi</h2>
-        <div class="alert alert-light border-start border-4 border-primary shadow-sm">
-            Program Studi Software Engineering UPITRA telah terakreditasi oleh BAN-PT dengan peringkat 
-            <strong>Baik Sekali</strong>.
+            <div class="mt-4">
+                {{-- {{ $newsItems->links() }}  --}}
+            </div>
         </div>
     </section>
-
-    {{-- Informasi Lomba --}}
-    <section class="mb-5">
-        <h2 class="text-primary">Informasi Lomba</h2>
-        <div class="alert alert-primary shadow-sm fw-bold">
-            🚀 Coming Soon: Info lomba akan segera hadir di halaman ini.
-        </div>
-    </section>
-
-    {{-- Profil Singkat --}}
-    <section class="mb-5">
-        <h2 class="text-primary">Profil Singkat Program Studi</h2>
-        <p>
-            Program Studi Software Engineering Universitas Pignatelli Triputra (UPITRA) berfokus pada pengembangan perangkat lunak, inovasi teknologi, dan pembentukan lulusan yang siap bersaing di dunia industri digital.
-        </p>
-    </section>
-
-    {{-- Keahlian --}}
-    <section class="mb-5">
-        <h2 class="text-primary">Keahlian di Dunia Software Engineering</h2>
-        <ul class="list-group">
-            <li class="list-group-item">Pengembangan aplikasi web dan mobile</li>
-            <li class="list-group-item">Analisis dan desain sistem</li>
-            <li class="list-group-item">Manajemen proyek perangkat lunak</li>
-            <li class="list-group-item">Keamanan siber</li>
-            <li class="list-group-item">Data science dan kecerdasan buatan</li>
-        </ul>
-    </section>
-
-    {{-- Daftar Acara --}}
-    <h2 class="text-primary mb-3">Daftar Acara</h2>
-    <div class="table-responsive shadow-sm">
-        <table class="table table-bordered table-hover align-middle">
-            <thead class="table-primary text-center">
-                <tr>
-                    <th>Nomor</th>
-                    <th>Judul Acara</th>
-                    <th>Tanggal</th>
-                    <th>Penulis</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="text-center">1</td>
-                    <td>Seminar AI</td>
-                    <td>10 Okt 2025</td>
-                    <td>Admin</td>
-                    <td class="text-center">
-                        <a href="#" class="btn btn-sm btn-primary">Lihat</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-</div>
-
 @endsection
