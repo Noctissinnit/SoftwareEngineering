@@ -86,7 +86,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{{route('dokumen')}}">Dokumen</a></li>
-                            <li><a class="dropdown-item" href="{{route('rps-index')}}">Rencana Program Studi</a></li>
+                            <li><a class="dropdown-item" href="{{route('rps-index')}}">Rencana Pembelajaran Semester</a></li>
                         </ul>
                     </li>
 

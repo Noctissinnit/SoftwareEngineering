@@ -9,8 +9,8 @@
 
     {{-- Judul Halaman --}}
     <div class="text-center mb-5">
-        <h1 class="fw-bold text-primary">Kemahasiswaan</h1>
-        <p class="text-muted">Program Studi Sistem Informasi - Universitas</p>
+        <h1 class="fw-bold text-primary">Mahasiswa dan Mahasiswi</h1>
+        <p class="text-muted">Program Studi Software Engineering - Universitas Pignatelli Triputra</p>
     </div>
 
     {{-- Profil Lulusan --}}
