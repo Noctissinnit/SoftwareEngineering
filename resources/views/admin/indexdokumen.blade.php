@@ -49,7 +49,7 @@
                         </tr>
                         <tr>
                             <td class="text-center">3</td>
-                            <td>Pengantar Teknologi Informasi</td>
+                            <td>Sistem Operasi</td>
                             <td class="text-center">
                                 <button class="btn btn-sm btn-info">Lihat RPS</button>
                             </td>
