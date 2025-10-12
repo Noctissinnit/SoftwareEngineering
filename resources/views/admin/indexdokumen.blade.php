@@ -9,6 +9,29 @@
         <p class="text-muted">Program Studi Software Engineering - Universitas Pignatelli Triputra</p>
     </div>
 
+    {{-- Form Tambah RPS --}}
+    <form action="{{ route('rps.store') }}" method="POST" enctype="multipart/form-data" class="mb-4">
+        @csrf
+        <div class="row g-2">
+            <div class="col-md-4">
+                <input type="text" name="nama_matkul" class="form-control" placeholder="Nama Mata Kuliah" required>
+            </div>
+            <div class="col-md-2">
+                <select name="semester" class="form-control" required>
+                    @for($i=1;$i<=8;$i++)
+                        <option value="{{ $i }}">Semester {{ $i }}</option>
+                    @endfor
+                </select>
+            </div>
+            <div class="col-md-4">
+                <input type="file" name="file_rps" class="form-control" accept=".pdf,.doc,.docx">
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">Tambah RPS</button>
+            </div>
+        </div>
+    </form>
+
     {{-- Tab Semester --}}
     <ul class="nav nav-tabs mb-4 justify-content-center" id="semesterTab" role="tablist">
         @for ($i = 1; $i <= 8; $i++)
@@ -21,208 +44,46 @@
     </ul>
 
     <div class="tab-content" id="semesterTabContent">
-        {{-- Semester 1 --}}
-        <div class="tab-pane fade show active" id="semester1" role="tabpanel" aria-labelledby="semester1-tab">
-            <div class="table-responsive shadow-sm">
-                <table class="table table-bordered table-hover align-middle">
-                    <thead class="table-primary text-center">
-                        <tr>
-                            <th>No</th>
-                            <th>Nama Mata Kuliah</th>
-                            <th>RPS</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="text-center">1</td>
-                            <td>Pengantar Rekayasa Perangkat Lunak</td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-info">Lihat RPS</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">2</td>
-                            <td>Agama</td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-info">Lihat RPS</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">3</td>
-                            <td>Sistem Operasi</td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-info">Lihat RPS</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">4</td>
-                            <td>Matematika Diskrit</td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-info">Lihat RPS</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">5</td>
-                            <td>Pancasila</td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-info">Lihat RPS</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">6</td>
-                            <td>Business Communication</td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-info">Lihat RPS</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">7</td>
-                            <td>Pemrograman Dasar</td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-info">Lihat RPS</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+        
+        @for ($i = 1; $i <= 8; $i++)
+            {{-- Semester 1-8 --}}
+            <div class="tab-pane fade {{ $i == 1 ? 'show active' : '' }}" id="semester{{ $i }}" role="tabpanel" aria-labelledby="semester{{ $i }}-tab">
+                <div class="table-responsive shadow-sm">
+                    <table class="table table-bordered table-hover align-middle">
+                        <thead class="table-primary text-center">
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Mata Kuliah</th>
+                                <th>RPS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($rps[$i] ?? [] as $item)
+                            <tr>
+                                <td class="text-center">{{ $loop->iteration }}</td>
+                                <td>{{ $item->nama_matkul }}</td>
+                                <td class="text-center">
+                                    @if($item->file_rps)
+                                        <a href="{{ asset('storage/' . $item->file_rps) }}" target="_blank" class="btn btn-sm btn-info">Lihat RPS</a>
+                                    @else
+                                        <span class="text-muted">Belum ada file</span>
+                                    @endif
+                                    <form action="{{ route('rps.destroy', $item->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus?')">Hapus</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="3" class="text-center">Belum ada data RPS.</td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
-        {{-- Semester 2 --}}
-        <div class="tab-pane fade" id="semester2" role="tabpanel" aria-labelledby="semester2-tab">
-            <div class="table-responsive shadow-sm">
-                <table class="table table-bordered table-hover align-middle">
-                    <thead class="table-primary text-center">
-                        <tr>
-                            <th>No</th>
-                            <th>Nama Mata Kuliah</th>
-                            <th>RPS</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="text-center">1</td>
-                            <td>Statiska & Probabilitas</td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-info">Lihat RPS</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">2</td>
-                            <td>Analisis Kebutuhan Perangkat Lunak</td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-info">Lihat RPS</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">3</td>
-                            <td>Pemrograman WEB Dasar</td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-info">Lihat RPS</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">4</td>
-                            <td>Bahasa Indonesia</td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-info">Lihat RPS</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">5</td>
-                            <td>Basis Data</td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-info">Lihat RPS</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">6</td>
-                            <td>Algoritma & Struktur Data</td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-info">Lihat RPS</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">7</td>
-                            <td>Kewarganegaraan</td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-info">Lihat RPS</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        {{-- Semester 3 --}}
-        <div class="tab-pane fade" id="semester3" role="tabpanel" aria-labelledby="semester3-tab">
-            <div class="table-responsive shadow-sm">
-                <table class="table table-bordered table-hover align-middle">
-                    <thead class="table-primary text-center">
-                        <tr>
-                            <th>No</th>
-                            <th>Nama Mata Kuliah</th>
-                            <th>RPS</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="text-center">1</td>
-                            <td>Proses Perangkat Lunak</td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-info">Lihat RPS</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">2</td>
-                            <td>jaringan Komunikasi Data</td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-info">Lihat RPS</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">3</td>
-                            <td>Arsitektur Industri</td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-info">Lihat RPS</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">4</td>
-                            <td>Pemrograman Berorientasi Objek</td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-info">Lihat RPS</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">5</td>
-                            <td>Pengembangan Kepribadian UPITRA DNA</td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-info">Lihat RPS</button>
-                            </td>
-                        </tr>
-                          <tr>
-                            <td class="text-center">6</td>
-                            <td>Pemrograman WEB Lanjut</td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-info">Lihat RPS</button>
-                            </td>
-                        </tr>
-                          <tr>
-                            <td class="text-center">7</td>
-                            <td>Pemodelan Perangkat Lunak</td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-info">Lihat RPS</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        {{-- Semester 4-8 --}}
-        @for ($i = 4; $i <= 8; $i++)
-        <div class="tab-pane fade" id="semester{{ $i }}" role="tabpanel" aria-labelledby="semester{{ $i }}-tab">
-            <div class="alert alert-warning mt-4 text-center">
-                Daftar RPS Mata Kuliah Semester {{ $i }} masih kosong.
-            </div>
-        </div>
         @endfor
     </div>
 

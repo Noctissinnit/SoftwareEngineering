@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 
 class MainController extends Controller
@@ -19,7 +20,8 @@ class MainController extends Controller
     }
 
     public function mahasiswa() {
-        return view('main.indexmahasiswa');
+        $mahasiswas = Mahasiswa::all()->groupBy('semester');
+        return view('main.indexmahasiswa', compact('mahasiswas'));
     }
 
     public function pmb() {
