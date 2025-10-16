@@ -3,9 +3,9 @@
 @section('content')
     <section class="pmb-section py-5">
         <div class="container">
-            <h1 class="mb-4" style="color: #03378c;">Pendaftaran Mahasiswa Baru (PMB)</h1>
+            <h1 class="mb-4" style="color: #03378c;">Pendaftaran Mahasiswa & Mahasiswi Baru (PMB)</h1>
             <p class="fs-5 mb-4">
-                Selamat datang di halaman Pendaftaran Mahasiswa Baru Program Studi Sistem Informasi. Silakan isi formulir di bawah ini untuk mendaftar sebagai calon mahasiswa.
+                Selamat datang di halaman Pendaftaran Mahasiswa & Mahasiswi Baru Program Studi Software Engineering. Silakan isi formulir di bawah ini untuk mendaftar sebagai calon mahasiswa.
             </p>
 
             <form action="#" method="POST" class="pmb-form" style="max-width: 600px;">
@@ -34,8 +34,7 @@
                     <label for="program" class="form-label">Program Studi</label>
                     <select class="form-select" id="program" name="program" required>
                         <option value="" disabled selected>Pilih program studi</option>
-                        <option value="sistem-informasi">Sistem Informasi</option>
-                        <option value="teknik-informatika">Teknik Informatika</option>
+                        <option value="Software Engineering">Software Engineering</option>
                     </select>
                 </div>
 
