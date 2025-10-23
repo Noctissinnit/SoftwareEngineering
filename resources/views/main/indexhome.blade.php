@@ -10,13 +10,11 @@
 <body>
     <table>
         <thead>
-            <tr>
                 <th>Nomor</th>
                 <th>Judul Informasi</th>
                 <th>Tanggal</th>
                 <th>Penulis</th>
                 <th>Aksi</th>
-            </tr>
         </thead>
     </table>
 </body>
