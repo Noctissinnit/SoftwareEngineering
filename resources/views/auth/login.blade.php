@@ -7,7 +7,8 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('images/se.png') }}">
     <style>
         body {
-            background: linear-gradient(135deg, #007bff 0%, #6610f2 100%);
+            background-image: url('{{ asset('images/bg.jpg') }}');
+            background-size: cover;
             height: 100vh;
         }
         .card {
