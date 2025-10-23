@@ -10,7 +10,7 @@ class RpsController extends Controller
     public function index()
     {
         $rps = Rps::all()->groupBy('semester');
-        return view('admin.indexdokumen', compact('rps'));
+        return view('main.rps-index', compact('rps'));
     }
 
     public function store(Request $request)
@@ -36,5 +36,29 @@ class RpsController extends Controller
         }
         $rps->delete();
         return back()->with('success', 'RPS berhasil dihapus');
+    }
+
+    public function checkForm()
+    {
+        return view('rps.check');
+    }
+
+    // Memproses nomor induk
+   public function verifyNomorInduk(Request $request)
+    {
+        $request->validate([
+            'nomor_induk' => 'required|string',
+            'file_rps'    => 'required|url',
+        ]);
+
+        // Cek nomor induk valid
+        $user = \App\Models\User::where('nomor_induk', $request->nomor_induk)->first();
+
+        if (!$user) {
+            return back()->withErrors(['nomor_induk' => 'Nomor induk tidak valid']);
+        }
+
+        // Nomor induk valid → buka file RPS
+        return redirect($request->file_rps);
     }
 }

@@ -24,7 +24,13 @@ Route::view('/pmb', 'main.indexpmb')->name('pmb');
 Route::get('/profildosen', [DosenController::class, 'indexMain'])->name('profildosen');
 Route::view('/sejarah-prodi', 'main.sejarah-prodi')->name('sejarah-prodi');
 Route::view('/visi-misi', 'main.visi-misi')->name('visi-misi');
-Route::view('/rps-index', 'main.rps-index')->name('rps-index');
+
+//Route RPS
+Route::get('/rps-index', [RpsController::class, 'index'])->name('rps-index');
+
+// Form input nomor induk & submit
+Route::get('/rps', [RpsController::class, 'checkForm'])->name('rps.check-form');
+Route::post('/rps/verify', [RpsController::class, 'verifyNomorInduk'])->name('rps.verify-nomor');
 
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
@@ -45,7 +51,6 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::post('/mahasiswa', [MahasiswaController::class, 'store'])->name('mahasiswa.store');
     Route::delete('/mahasiswa/{mahasiswa}', [MahasiswaController::class, 'destroy'])->name('mahasiswa.destroy');
     Route::get('/profildosen', [DosenController::class, 'index'])->name('admin.profildosen');
-
     Route::post('/mahasiswa/import', [MahasiswaController::class, 'import'])->name('mahasiswa.import');
 
 
@@ -53,3 +58,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::resource('dosen', DosenController::class);
 });
 
+Route::middleware(['auth','role:dosen'])->prefix('dosen')->group(function () {
+    Route::get('/berita', [AcaraController::class, 'index'])->name('dosen.berita');
+    Route::resource('acara', AcaraController::class);
+
+});

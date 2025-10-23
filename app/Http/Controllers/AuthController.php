@@ -12,7 +12,7 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    public function login(Request $request)
+   public function login(Request $request)
     {
         $credentials = $request->validate([
             'email'    => 'required|email',
@@ -22,18 +22,21 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            
             if (Auth::user()->hasRole('admin')) {
                 return redirect()->route('admin.berita');
+            } elseif (Auth::user()->hasRole('dosen')) {
+                return redirect()->route('dosen.berita');
             }
 
-            return redirect()->route('dashboard'); 
+            return redirect()->route('dashboard');
         }
 
+        // Jika login gagal
         return back()->withErrors([
             'email' => 'Email atau password salah.',
         ])->onlyInput('email');
     }
+
 
     public function logout(Request $request)
     {
