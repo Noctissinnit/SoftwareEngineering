@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ProfilDosenController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\Admin\MahasiswaController;
+use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RpsController;
@@ -43,10 +44,11 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
+    Route::get('/', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/berita', [AcaraController::class, 'index'])->name('admin.berita');
-    Route::get('/dokumen', [RpsController::class, 'index'])->name('admin.dokumen');
-    Route::post('/dokumen', [RpsController::class, 'store'])->name('rps.store');
-    Route::delete('/dokumen/{rps}', [RpsController::class, 'destroy'])->name('rps.destroy');
+    Route::get('/dokumen', [DokumenController::class, 'index'])->name('admin.dokumen');
+    Route::post('/dokumen', [DokumenController::class, 'store'])->name('rps.store');
+    Route::delete('/dokumen/{rps}', [DokumenController::class, 'destroy'])->name('rps.destroy');
     Route::get('/mahasiswa', [MahasiswaController::class, 'index'])->name('admin.mahasiswa');
     Route::post('/mahasiswa', [MahasiswaController::class, 'store'])->name('mahasiswa.store');
     Route::delete('/mahasiswa/{mahasiswa}', [MahasiswaController::class, 'destroy'])->name('mahasiswa.destroy');

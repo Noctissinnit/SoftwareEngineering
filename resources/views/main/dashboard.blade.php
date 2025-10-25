@@ -11,19 +11,23 @@
                margin-left: -50vw;
                margin-right: -50vw;
                overflow: hidden;">
-        <div class="container">
-            <div class="row align-items-center">
-                <!-- Kolom kiri: teks -->
+        <div class="container position-relative">
+           
+
+            <div class="row align-items-center position-relative" style="z-index:2;">
+                <!-- Kolom kiri -->
                 <div class="col-md-6 text-start">
-                    <h1 class="display-4 fw-bold mb-3">Program Studi Software Engineering</h1>
+                    <h1 class="display-4 fw-bold mb-3">
+                        <span style="color:#EEC643;">Program Studi</span> Software Engineering
+                    </h1>
                     <p class="lead mb-5">Mempersiapkan lulusan yang unggul, kreatif & profesional berbasis teknologi informasi.</p>
-                    <a href="#" class="btn btn-light text-primary px-5 py-3 fw-semibold shadow-sm" 
-                       style="transition: background-color 0.3s ease;">
+                    <a href="#" class="btn px-5 py-3 fw-semibold shadow-sm"
+                       style="background-color:#EEC643; color:#ffffff; border:none; transition: all 0.3s ease;">
                        Kenali Kami Lebih Dalam
                     </a>
                 </div>
 
-                <!-- Kolom kanan: logo besar -->
+                <!-- Kolom kanan -->
                 <div class="col-md-6 text-center position-relative">
                     <img src="{{ asset('images/newrpl.png') }}" 
                          alt="Logo Kampus" 
@@ -48,8 +52,9 @@
 
                 @foreach($stats as $stat)
                     <div class="col-md-3">
-                        <div class="stat-card p-4 border rounded shadow-sm d-flex flex-column align-items-center">
-                            <i class="bi {{ $stat['icon'] }} fs-1 mb-2" style="color: #03378c;"></i>
+                        <div class="stat-card p-4 border rounded shadow-sm d-flex flex-column align-items-center"
+                             style="border-top: 4px solid #EEC643;">
+                            <i class="bi {{ $stat['icon'] }} fs-1 mb-2" style="color: #EEC643;"></i>
                             <h2 class="stat-number fw-bold" style="color: #03378c; font-size: 2.5rem;">{{ $stat['number'] }}</h2>
                             <p class="stat-label text-muted mb-0">{{ $stat['label'] }}</p>
                         </div>

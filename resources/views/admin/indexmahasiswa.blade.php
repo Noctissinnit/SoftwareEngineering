@@ -1,33 +1,131 @@
 @extends('layouts.app')
 
 @section('content')
-@push('styles')
-<link rel="stylesheet" href="{{ asset('css/adminmahasiswa.css') }}">
-@endpush
+<style>
+    body {
+        background-color: #f4f6f9;
+    }
 
-<div class="container my-5">
+    .card {
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .card-header {
+        background-color: #0d6efd;
+        color: white;
+        font-weight: 600;
+        border-radius: 12px 12px 0 0;
+    }
+
+    .nav-tabs {
+        border: none;
+        background-color: #fff;
+        padding: 8px;
+        border-radius: 10px;
+        box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+        justify-content: flex-start;
+    }
+
+    .nav-tabs .nav-link {
+        border: none;
+        color: #555;
+        font-weight: 500;
+        border-radius: 6px;
+        transition: all 0.2s ease;
+    }
+
+    .nav-tabs .nav-link.active {
+        background-color: #0d6efd;
+        color: white;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+
+    .table {
+        background-color: white;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .table thead {
+        background-color: #0d6efd;
+        color: white;
+        text-align: center;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f1f5ff;
+        transition: 0.2s;
+    }
+
+    .table th, .table td {
+        vertical-align: middle !important;
+    }
+
+    .btn-action {
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-size: 0.85rem;
+    }
+
+    .btn-action i {
+        vertical-align: middle;
+    }
+
+    .foto-mahasiswa {
+        width: 45px;
+        height: 45px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 2px solid #ddd;
+        transition: transform 0.2s;
+    }
+
+    .foto-mahasiswa:hover {
+        transform: scale(1.1);
+    }
+
+    .form-control {
+        border-radius: 8px;
+    }
+
+    .btn-primary, .btn-success, .btn-danger {
+        border-radius: 8px;
+    }
+
+    .mahasiswa-container {
+        max-width: 100%;
+        text-align: left;
+    }
+
+    .mahasiswa-header {
+        text-align: left;
+    }
+
+    .mahasiswa-header h1 {
+        font-size: 2rem;
+    }
+
+    .mahasiswa-header p {
+        margin-left: 3px;
+    }
+</style>
+
+<div class="container py-4 mahasiswa-container">
 
     {{-- Judul Halaman --}}
-    <div class="text-center mb-5">
-        <h1 class="fw-bold text-primary">Mahasiswa dan Mahasiswi</h1>
-        <p class="text-muted">Program Studi Software Engineering - Universitas Pignatelli Triputra</p>
+    <div class="mahasiswa-header mb-5">
+        <h1 class="fw-bold text-primary">
+            <i class="bi bi-people-fill me-2"></i>Mahasiswa dan Mahasiswi
+        </h1>
+        <p class="text-muted mb-0">Program Studi Software Engineering - Universitas Pignatelli Triputra</p>
     </div>
 
-    {{-- Profil Lulusan --}}
-    <div class="card shadow-sm border-0 mb-5">
-        <div class="card-header bg-primary text-white fw-bold">
-            Profil Lulusan
-        </div>
-        <div class="card-body text-center">
-            <h3 class="text-muted fst-italic">Coming Soon...</h3>
-        </div>
-    </div>
-
-    {{-- Form Tambah Mahasiswa --}}
-    <div class="card shadow-sm border-0 mb-5">
-        <div class="card-header bg-primary text-white fw-bold d-flex justify-content-between align-items-center">
-            <span>Tambah Mahasiswa</span>
-            {{-- Form Import Excel --}}
+    {{-- Form Tambah & Import --}}
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <span><i class="bi bi-person-plus me-2"></i>Tambah Mahasiswa</span>
             <form action="{{ route('mahasiswa.import') }}" method="POST" enctype="multipart/form-data" class="d-flex align-items-center">
                 @csrf
                 <input type="file" name="file" class="form-control form-control-sm me-2" accept=".xlsx,.xls,.csv" required>
@@ -38,16 +136,19 @@
         </div>
 
         <div class="card-body">
-            <form action="{{ route('mahasiswa.store') }}" method="POST" enctype="multipart/form-data" class="mb-4">
+            <form action="{{ route('mahasiswa.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <div class="row g-2">
+                <div class="row g-3 align-items-end">
                     <div class="col-md-3">
-                        <input type="text" name="nama" class="form-control" placeholder="Nama Mahasiswa" required>
+                        <label class="form-label fw-semibold">Nama Mahasiswa</label>
+                        <input type="text" name="nama" class="form-control" placeholder="Nama lengkap" required>
                     </div>
                     <div class="col-md-3">
-                        <input type="text" name="nim" class="form-control" placeholder="NIM" required>
+                        <label class="form-label fw-semibold">NIM</label>
+                        <input type="text" name="nim" class="form-control" placeholder="Nomor Induk Mahasiswa" required>
                     </div>
                     <div class="col-md-2">
+                        <label class="form-label fw-semibold">Semester</label>
                         <select name="semester" class="form-control" required>
                             @foreach([1,3,5,7] as $semester)
                                 <option value="{{ $semester }}">Semester {{ $semester }}</option>
@@ -55,15 +156,17 @@
                         </select>
                     </div>
                     <div class="col-md-3">
+                        <label class="form-label fw-semibold">Foto</label>
                         <input type="file" name="foto" class="form-control" accept="image/*">
                     </div>
-                    <div class="col-md-1">
-                        <button type="submit" class="btn btn-primary w-100">Tambah</button>
+                    <div class="col-md-1 d-grid">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-plus-lg"></i>
+                        </button>
                     </div>
                 </div>
             </form>
 
-            {{-- Pesan sukses --}}
             @if(session('success'))
                 <div class="alert alert-success mt-3">
                     {{ session('success') }}
@@ -72,36 +175,71 @@
         </div>
     </div>
 
-    {{-- Daftar Mahasiswa --}}
-    <div class="row g-4">
+    {{-- Tab Semester --}}
+    <ul class="nav nav-tabs mb-4" id="semesterTab" role="tablist">
         @foreach ([1,3,5,7] as $semester)
-            <div class="col-md-6 col-lg-3">
-                <div class="card shadow-sm border-0 h-100">
-                    <div class="card-header bg-primary text-white fw-bold">
-                        Semester {{ $semester }}
+            <li class="nav-item" role="presentation">
+                <button class="nav-link {{ $loop->first ? 'active' : '' }}" id="semester{{ $semester }}-tab" data-bs-toggle="tab" data-bs-target="#semester{{ $semester }}" type="button" role="tab" aria-controls="semester{{ $semester }}" aria-selected="{{ $loop->first ? 'true' : 'false' }}">
+                    Semester {{ $semester }}
+                </button>
+            </li>
+        @endforeach
+    </ul>
+
+    {{-- Daftar Mahasiswa --}}
+    <div class="tab-content" id="semesterTabContent">
+        @foreach ([1,3,5,7] as $semester)
+            <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="semester{{ $semester }}" role="tabpanel" aria-labelledby="semester{{ $semester }}-tab">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span><i class="bi bi-list-check me-2"></i>Daftar Mahasiswa - Semester {{ $semester }}</span>
+                        <span class="badge bg-light text-dark">{{ count($mahasiswas[$semester] ?? []) }} Mahasiswa</span>
                     </div>
-                    <div class="card-body text-center">
-                        @if(isset($mahasiswas[$semester]) && count($mahasiswas[$semester]))
-                            <ul class="list-group list-group-flush">
-                                @foreach($mahasiswas[$semester] as $mhs)
-                                    <li class="list-group-item d-flex align-items-center justify-content-between">
-                                        <div class="d-flex align-items-center">
-                                            @if($mhs->foto)
-                                                <img src="{{ asset('storage/' . $mhs->foto) }}" alt="{{ $mhs->nama }}" class="rounded-circle me-2" style="width:40px;height:40px;object-fit:cover;">
-                                            @endif
-                                            <span>{{ $mhs->nama }} ({{ $mhs->nim }})</span>
-                                        </div>
-                                        <form action="{{ route('mahasiswa.destroy', $mhs->id) }}" method="POST" style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin hapus?')">Hapus</button>
-                                        </form>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        @else
-                            <p class="text-muted">Data mahasiswa belum tersedia.</p>
-                        @endif
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover align-middle mb-0">
+                                <thead>
+                                    <tr>
+                                        <th width="5%">No</th>
+                                        <th width="10%">Foto</th>
+                                        <th>Nama</th>
+                                        <th>NIM</th>
+                                        <th width="10%">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse($mahasiswas[$semester] ?? [] as $mhs)
+                                        <tr>
+                                            <td class="text-center">{{ $loop->iteration }}</td>
+                                            <td class="text-center">
+                                                @if($mhs->foto)
+                                                    <img src="{{ asset('storage/' . $mhs->foto) }}" class="foto-mahasiswa" alt="{{ $mhs->nama }}">
+                                                @else
+                                                    <span class="text-muted">-</span>
+                                                @endif
+                                            </td>
+                                            <td>{{ $mhs->nama }}</td>
+                                            <td>{{ $mhs->nim }}</td>
+                                            <td class="text-center">
+                                                <form action="{{ route('mahasiswa.destroy', $mhs->id) }}" method="POST" class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-sm btn-danger btn-action" onclick="return confirm('Yakin hapus mahasiswa ini?')">
+                                                        <i class="bi bi-trash"></i> Hapus
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="5" class="text-center text-muted py-3">
+                                                <i class="bi bi-exclamation-circle me-1"></i> Belum ada data mahasiswa untuk semester ini.
+                                            </td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
