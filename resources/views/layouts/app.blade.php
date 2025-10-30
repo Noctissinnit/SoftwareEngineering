@@ -276,20 +276,30 @@
 
     <!-- Main Content -->
     <div class="main-content" id="mainContent">
-        <div class="topbar">
-            <div class="topbar-left">
-                <button class="toggle-btn" id="toggleBtn"><i class="bi bi-list"></i></button>
-                <h5>Dashboard Admin</h5>
+        <div class="topbar d-flex justify-content-between align-items-center px-3">
+            <div class="topbar-left d-flex align-items-center">
+                <button class="toggle-btn me-3" id="toggleBtn"><i class="bi bi-list"></i></button>
+                <h5 class="m-0">Dashboard Admin</h5>
             </div>
 
-            <div class="user-info">
+            <div class="user-info d-flex align-items-center gap-3">
                 @auth
-                    <img src="{{ Auth::user()->profile_photo_url ?? asset('images/se.png') }}" alt="User">
-                    <span>{{ Auth::user()->name }}</span>
+                    <!-- Ikon Home -->
+                    <a href="{{ route('home') }}" class="nav-link text-dark" title="Home">
+                        <i class="bi bi-house fs-5"></i>
+                    </a>
+
+                    <!-- Foto dan Nama User -->
+                    <div class="d-flex align-items-center gap-2">
+                        <img src="{{ Auth::user()->profile_photo_url ?? asset('images/se.png') }}" alt="User" width="32" height="32" class="rounded-circle">
+                        <span>{{ Auth::user()->name }}</span>
+                    </div>
+
+                    <!-- Tombol Logout -->
                     <form action="{{ route('logout') }}" method="POST" class="m-0">
                         @csrf
-                        <button type="submit" class="logout-btn">
-                            <i class="bi bi-box-arrow-right"></i>
+                        <button type="submit" class="logout-btn btn btn-link text-danger p-0">
+                            <i class="bi bi-box-arrow-right fs-5"></i>
                         </button>
                     </form>
                 @else

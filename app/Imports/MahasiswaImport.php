@@ -12,9 +12,9 @@ class MahasiswaImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
           return new Mahasiswa([
-                'nama' => $row['nama'],          // sesuai kolom di Excel
+                'nama' => $row['nama'],          
                 'nim' => $row['nim'],
-                'semester' => $row['semester'] ?? 1,
+                'semester' => $row['angkatan'] ?? 1,
                 'foto' => null,
             ]);
     }

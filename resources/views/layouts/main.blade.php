@@ -96,8 +96,7 @@
                 </ul>
             </div>
 
-            <!-- Icon Instagram -->
-                    <!-- Icon Instagram -->
+       
           <div class="d-flex align-items-center gap-3">
                 <!-- Instagram -->
                 <a href="https://instagram.com/" target="_blank" class="nav-link text fs-4">
