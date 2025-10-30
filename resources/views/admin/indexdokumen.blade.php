@@ -105,7 +105,7 @@
     {{-- Judul Halaman --}}
     <div class="rps-header mb-5">
         <h1 class="fw-bold text-primary">
-            <i class="bi bi-journal-bookmark me-2"></i>Rencana Pembelajaran Semester
+            <i class="bi bi-journal-bookmark me-2"></i>Daftar Mata Kuliah
         </h1>
         <p class="text-muted mb-0">Program Studi Software Engineering - Universitas Pignatelli Triputra</p>
     </div>
@@ -113,7 +113,7 @@
     {{-- Form Tambah RPS --}}
     <div class="card mb-4">
         <div class="card-header">
-            <i class="bi bi-plus-circle me-2"></i>Tambah RPS Baru
+            <i class="bi bi-plus-circle me-2"></i>Tambah Mata Kuliah
         </div>
         <div class="card-body">
             <form action="{{ route('rps.store') }}" method="POST" enctype="multipart/form-data">
@@ -162,7 +162,7 @@
             <div class="tab-pane fade {{ $i == 1 ? 'show active' : '' }}" id="semester{{ $i }}" role="tabpanel" aria-labelledby="semester{{ $i }}-tab">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <span><i class="bi bi-list-check me-2"></i>Daftar RPS - Semester {{ $i }}</span>
+                        <span><i class="bi bi-list-check me-2"></i>Daftar Mata Kuliah - Semester {{ $i }}</span>
                         <span class="badge bg-light text-dark">{{ count($rps[$i] ?? []) }} Mata Kuliah</span>
                     </div>
                     <div class="card-body p-0">

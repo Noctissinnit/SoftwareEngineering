@@ -251,7 +251,6 @@
                         <i class="bi bi-newspaper"></i> <span>Berita</span>
                     </a>
                 </li>
-                <li>
                     <a class="nav-link {{ request()->routeIs('admin.dokumen') ? 'active' : '' }}" href="{{ route('admin.dokumen') }}">
                         <i class="bi bi-folder2-open"></i> <span>Dokumen</span>
                     </a>

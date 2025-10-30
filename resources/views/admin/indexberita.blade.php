@@ -89,16 +89,16 @@
         <i class="bi bi-newspaper me-2"></i> Berita Software Engineering UPITRA
     </h1>
 
-    {{-- Tombol Tambah Acara --}}
+    {{-- Tombol Tambah Berita --}}
     <div class="text-end mb-3">
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTambahAcara">
-            <i class="bi bi-plus-lg"></i> Tambah Acara
+            <i class="bi bi-plus-lg"></i> Tambah Berita
         </button>
     </div>
 
     {{-- Tab Navigasi --}}
     <ul class="nav nav-tabs mb-4" id="beritaTab" role="tablist">
-        <li class="nav-item"><button class="nav-link active" id="acara-tab" data-bs-toggle="tab" data-bs-target="#acara" type="button">Acara</button></li>
+        <li class="nav-item"><button class="nav-link active" id="acara-tab" data-bs-toggle="tab" data-bs-target="#berita" type="button">Berita</button></li>
         <li class="nav-item"><button class="nav-link" id="visi-tab" data-bs-toggle="tab" data-bs-target="#visi" type="button">Visi & Misi</button></li>
         <li class="nav-item"><button class="nav-link" id="akreditasi-tab" data-bs-toggle="tab" data-bs-target="#akreditasi" type="button">Akreditasi</button></li>
         <li class="nav-item"><button class="nav-link" id="profil-tab" data-bs-toggle="tab" data-bs-target="#profil" type="button">Tujuan Prodi</button></li>
@@ -107,11 +107,11 @@
 
     <div class="tab-content" id="beritaTabContent">
 
-        {{-- TAB ACARA --}}
+        {{-- TAB BERITA --}}
         <div class="tab-pane fade show active" id="acara" role="tabpanel">
             <div class="card">
                 <div class="card-header">
-                    <i class="bi bi-calendar-event me-2"></i> Daftar Acara
+                    <i class="bi bi-calendar-event me-2"></i> Daftar Berita
                 </div>
                 <div class="card-body p-3">
                     <div class="table-responsive">

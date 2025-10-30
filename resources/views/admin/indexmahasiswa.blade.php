@@ -148,10 +148,10 @@
                         <input type="text" name="nim" class="form-control" placeholder="Nomor Induk Mahasiswa" required>
                     </div>
                     <div class="col-md-2">
-                        <label class="form-label fw-semibold">Semester</label>
-                        <select name="semester" class="form-control" required>
-                            @foreach([1,3,5,7] as $semester)
-                                <option value="{{ $semester }}">Semester {{ $semester }}</option>
+                        <label class="form-label fw-semibold">Angkatan</label>
+                        <select name="angkatan" class="form-control" required>
+                            @foreach([2025,2024,2023,2022] as $angkatan)
+                                <option value="{{ $angkatan }}">Angkatan {{ $angkatan }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -175,12 +175,12 @@
         </div>
     </div>
 
-    {{-- Tab Semester --}}
+    {{-- Tab Angkatan --}}
     <ul class="nav nav-tabs mb-4" id="semesterTab" role="tablist">
-        @foreach ([1,3,5,7] as $semester)
+        @foreach ([2025,2024,2023,2022] as $angkatan)
             <li class="nav-item" role="presentation">
-                <button class="nav-link {{ $loop->first ? 'active' : '' }}" id="semester{{ $semester }}-tab" data-bs-toggle="tab" data-bs-target="#semester{{ $semester }}" type="button" role="tab" aria-controls="semester{{ $semester }}" aria-selected="{{ $loop->first ? 'true' : 'false' }}">
-                    Semester {{ $semester }}
+                <button class="nav-link {{ $loop->first ? 'active' : '' }}" id="=angkatan{{ $angkatan }}-tab" data-bs-toggle="tab" data-bs-target="#angkatan{{ $angkatan }}" type="button" role="tab" aria-controls="semester{{ $angkatan }}" aria-selected="{{ $loop->first ? 'true' : 'false' }}">
+                    Angkatan {{ $angkatan }}
                 </button>
             </li>
         @endforeach
@@ -188,12 +188,12 @@
 
     {{-- Daftar Mahasiswa --}}
     <div class="tab-content" id="semesterTabContent">
-        @foreach ([1,3,5,7] as $semester)
-            <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="semester{{ $semester }}" role="tabpanel" aria-labelledby="semester{{ $semester }}-tab">
+        @foreach ([2025,2024,2023,2022] as $angkatan)
+            <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="angkatan{{ $angkatan }}" role="tabpanel" aria-labelledby="angkatan{{ $angkatan }}-tab">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <span><i class="bi bi-list-check me-2"></i>Daftar Mahasiswa - Semester {{ $semester }}</span>
-                        <span class="badge bg-light text-dark">{{ count($mahasiswas[$semester] ?? []) }} Mahasiswa</span>
+                        <span><i class="bi bi-list-check me-2"></i>Daftar Mahasiswa - Angkatan {{ $angkatan }}</span>
+                        <span class="badge bg-light text-dark">{{ count($mahasiswas[$angkatan] ?? []) }} Mahasiswa</span>
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
@@ -208,7 +208,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse($mahasiswas[$semester] ?? [] as $mhs)
+                                    @forelse($mahasiswas[$angkatan] ?? [] as $mhs)
                                         <tr>
                                             <td class="text-center">{{ $loop->iteration }}</td>
                                             <td class="text-center">
@@ -233,7 +233,7 @@
                                     @empty
                                         <tr>
                                             <td colspan="5" class="text-center text-muted py-3">
-                                                <i class="bi bi-exclamation-circle me-1"></i> Belum ada data mahasiswa untuk semester ini.
+                                                <i class="bi bi-exclamation-circle me-1"></i> Belum ada data mahasiswa.
                                             </td>
                                         </tr>
                                     @endforelse

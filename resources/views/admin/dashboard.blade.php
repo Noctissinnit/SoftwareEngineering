@@ -73,7 +73,7 @@
     {{-- Header --}}
     <div class="dashboard-header">
         <h1><i class="bi bi-speedometer2 me-2"></i>Dashboard Admin</h1>
-        <p>Selamat datang di dashboard admin. Kelola data dosen, kaprodi, dan fitur lainnya dari sini.</p>
+        <p>Selamat datang di dashboard admin. Kelola data Kaprodi, Dosen, Berita, Acara, dan dokumen disini.</p>
     </div>
 
     {{-- Statistik Ringkas --}}
@@ -124,7 +124,7 @@
         <div class="card-body">
             <h5 class="card-title"><i class="bi bi-info-circle me-2"></i>Informasi</h5>
             <p class="card-text">
-                Gunakan sidebar di sebelah kiri untuk mengelola berbagai fitur sistem seperti profil dosen, kaprodi, dan data akademik lainnya.  
+                Gunakan sidebar di sebelah kiri untuk mengelola berbagai fitur sistem seperti profil Kaprodi, Dosen, dan data akademik lainnya.  
                 <br><br>
                 <strong>Tips:</strong> Klik ikon menu di sidebar untuk berpindah antar halaman dengan cepat.
             </p>
