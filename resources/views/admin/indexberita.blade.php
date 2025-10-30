@@ -91,7 +91,7 @@
 
     {{-- Tombol Tambah Berita --}}
     <div class="text-end mb-3">
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTambahAcara">
+         <button id="btnTambahBerita" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTambahAcara">
             <i class="bi bi-plus-lg"></i> Tambah Berita
         </button>
     </div>
@@ -259,5 +259,22 @@
         </form>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const btnTambahBerita = document.getElementById('btnTambahBerita');
+    const tabEl = document.getElementById('beritaTab');
+
+    // Jalankan setiap kali tab berubah
+    tabEl.addEventListener('shown.bs.tab', function (event) {
+        const target = event.target.getAttribute('data-bs-target'); // ID tab aktif
+        if (target === '#berita') {
+            btnTambahBerita.style.display = 'inline-block'; // Tampilkan tombol
+        } else {
+            btnTambahBerita.style.display = 'none'; // Sembunyikan tombol
+        }
+    });
+});
+</script>
 
 @endsection
