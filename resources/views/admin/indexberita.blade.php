@@ -108,7 +108,7 @@
     <div class="tab-content" id="beritaTabContent">
 
         {{-- TAB BERITA --}}
-        <div class="tab-pane fade show active" id="acara" role="tabpanel">
+        <div class="tab-pane fade show active" id="berita" role="tabpanel">
             <div class="card">
                 <div class="card-header">
                     <i class="bi bi-calendar-event me-2"></i> Daftar Berita

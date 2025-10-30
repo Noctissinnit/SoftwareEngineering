@@ -132,7 +132,7 @@
                         </select>
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label">File RPS (PDF/DOC)</label>
+                        <label class="form-label">File Mata Kuliah (PDF/DOC)</label>
                         <input type="file" name="file_rps" class="form-control" accept=".pdf,.doc,.docx">
                     </div>
                     <div class="col-md-2 d-grid">
