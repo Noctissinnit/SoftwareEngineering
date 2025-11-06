@@ -3,7 +3,7 @@
 @section('content')
     <section class="news-listing py-5">
         <div class="container">
-            <h1 class="mb-4" style="color: #03378c;">Berita Terbaru</h1>
+            <h1 class="mb-4" style="color: #03378c;">Acara Terbaru</h1>
             <div class="row g-4">
                 @forelse($acaras as $acara)
                     <div class="col-md-6 col-lg-4">
@@ -24,7 +24,7 @@
                         </div>
                     </div>
                 @empty
-                    <p>Tidak ada berita acara tersedia saat ini.</p>
+                    <p>Tidak ada acara yang tersedia saat ini.</p>
                 @endforelse
             </div>
 
