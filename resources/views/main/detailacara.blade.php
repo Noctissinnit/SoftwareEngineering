@@ -13,7 +13,7 @@
                     <h2 class="card-title">{{ $acara->judul }}</h2>
                     <p class="text-muted">{{ \Carbon\Carbon::parse($acara->tanggal)->format('d M Y') }} | {{ $acara->penulis }}</p>
                     <div class="card-text">{!! nl2br(e($acara->deskripsi)) !!}</div>
-                    <a href="{{ route('berita') }}" class="btn btn-secondary mt-3">Kembali ke Berita</a>
+                    <a href="{{ route('berita') }}" class="btn btn-secondary mt-3">Kembali ke daftar event</a>
                 </div>
             </div>
         </div>

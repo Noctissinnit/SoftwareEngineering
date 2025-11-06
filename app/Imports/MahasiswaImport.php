@@ -2,7 +2,8 @@
 
 namespace App\Imports;
 
-use App\Models\Mahasiswa;
+
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -11,11 +12,11 @@ class MahasiswaImport implements ToModel, WithHeadingRow
 {
     public function model(array $row)
     {
-          return new Mahasiswa([
-                'nama' => $row['nama'],          
+          return new User([
+                'nomor_induk' => $row['nama'],          
                 'nim' => $row['nim'],
-                'semester' => $row['angkatan'] ?? 1,
-                'foto' => null,
+                'angkatan' => $row['angkatan'] ?? 1,
+                'photo' => null,
             ]);
     }
 }

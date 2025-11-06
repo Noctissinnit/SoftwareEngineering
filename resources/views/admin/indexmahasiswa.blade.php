@@ -69,46 +69,16 @@
         font-size: 0.85rem;
     }
 
-    .btn-action i {
-        vertical-align: middle;
-    }
-
     .foto-mahasiswa {
         width: 45px;
         height: 45px;
         object-fit: cover;
         border-radius: 50%;
         border: 2px solid #ddd;
-        transition: transform 0.2s;
-    }
-
-    .foto-mahasiswa:hover {
-        transform: scale(1.1);
-    }
-
-    .form-control {
-        border-radius: 8px;
-    }
-
-    .btn-primary, .btn-success, .btn-danger {
-        border-radius: 8px;
-    }
-
-    .mahasiswa-container {
-        max-width: 100%;
-        text-align: left;
-    }
-
-    .mahasiswa-header {
-        text-align: left;
     }
 
     .mahasiswa-header h1 {
         font-size: 2rem;
-    }
-
-    .mahasiswa-header p {
-        margin-left: 3px;
     }
 </style>
 
@@ -149,11 +119,7 @@
                     </div>
                     <div class="col-md-2">
                         <label class="form-label fw-semibold">Angkatan</label>
-                        <select name="angkatan" class="form-control" required>
-                            @foreach([2025,2024,2023,2022] as $angkatan)
-                                <option value="{{ $angkatan }}">Angkatan {{ $angkatan }}</option>
-                            @endforeach
-                        </select>
+                        <input type="number" name="angkatan" class="form-control" placeholder="2025" required>
                     </div>
                     <div class="col-md-3">
                         <label class="form-label fw-semibold">Foto</label>
@@ -175,76 +141,78 @@
         </div>
     </div>
 
-    {{-- Tab Angkatan --}}
-    <ul class="nav nav-tabs mb-4" id="semesterTab" role="tablist">
-        @foreach ([2025,2024,2023,2022] as $angkatan)
-            <li class="nav-item" role="presentation">
-                <button class="nav-link {{ $loop->first ? 'active' : '' }}" id="=angkatan{{ $angkatan }}-tab" data-bs-toggle="tab" data-bs-target="#angkatan{{ $angkatan }}" type="button" role="tab" aria-controls="semester{{ $angkatan }}" aria-selected="{{ $loop->first ? 'true' : 'false' }}">
-                    Angkatan {{ $angkatan }}
-                </button>
-            </li>
-        @endforeach
-    </ul>
+    {{-- Tabs Berdasarkan Angkatan --}}
+    @if($mahasiswas->isEmpty())
+        <div class="alert alert-info text-center">
+            <i class="bi bi-exclamation-circle"></i> Belum ada data mahasiswa.
+        </div>
+    @else
+        <ul class="nav nav-tabs mb-4" role="tablist">
+            @foreach ($mahasiswas->keys() as $angkatan)
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link {{ $loop->first ? 'active' : '' }}"
+                            data-bs-toggle="tab"
+                            data-bs-target="#angkatan{{ $angkatan }}"
+                            type="button" role="tab">
+                        Angkatan {{ $angkatan }}
+                    </button>
+                </li>
+            @endforeach
+        </ul>
 
-    {{-- Daftar Mahasiswa --}}
-    <div class="tab-content" id="semesterTabContent">
-        @foreach ([2025,2024,2023,2022] as $angkatan)
-            <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="angkatan{{ $angkatan }}" role="tabpanel" aria-labelledby="angkatan{{ $angkatan }}-tab">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <span><i class="bi bi-list-check me-2"></i>Daftar Mahasiswa - Angkatan {{ $angkatan }}</span>
-                        <span class="badge bg-light text-dark">{{ count($mahasiswas[$angkatan] ?? []) }} Mahasiswa</span>
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover align-middle mb-0">
-                                <thead>
-                                    <tr>
-                                        <th width="5%">No</th>
-                                        <th width="10%">Foto</th>
-                                        <th>Nama</th>
-                                        <th>NIM</th>
-                                        <th width="10%">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @forelse($mahasiswas[$angkatan] ?? [] as $mhs)
+        <div class="tab-content">
+            @foreach ($mahasiswas as $angkatan => $list)
+                <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="angkatan{{ $angkatan }}" role="tabpanel">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <span><i class="bi bi-list-check me-2"></i>Daftar Mahasiswa - Angkatan {{ $angkatan }}</span>
+                            <span class="badge bg-light text-dark">{{ count($list) }} Mahasiswa</span>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover align-middle mb-0">
+                                    <thead>
                                         <tr>
-                                            <td class="text-center">{{ $loop->iteration }}</td>
-                                            <td class="text-center">
-                                                @if($mhs->foto)
-                                                    <img src="{{ asset('storage/' . $mhs->foto) }}" class="foto-mahasiswa" alt="{{ $mhs->nama }}">
-                                                @else
-                                                    <span class="text-muted">-</span>
-                                                @endif
-                                            </td>
-                                            <td>{{ $mhs->nama }}</td>
-                                            <td>{{ $mhs->nim }}</td>
-                                            <td class="text-center">
-                                                <form action="{{ route('mahasiswa.destroy', $mhs->id) }}" method="POST" class="d-inline">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button class="btn btn-sm btn-danger btn-action" onclick="return confirm('Yakin hapus mahasiswa ini?')">
-                                                        <i class="bi bi-trash"></i> Hapus
-                                                    </button>
-                                                </form>
-                                            </td>
+                                            <th width="5%">No</th>
+                                            <th width="10%">Foto</th>
+                                            <th>Nama</th>
+                                            <th>NIM</th>
+                                            <th width="10%">Aksi</th>
                                         </tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="5" class="text-center text-muted py-3">
-                                                <i class="bi bi-exclamation-circle me-1"></i> Belum ada data mahasiswa.
-                                            </td>
-                                        </tr>
-                                    @endforelse
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($list as $mhs)
+                                            <tr>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                <td class="text-center">
+                                                    @if($mhs->foto)
+                                                        <img src="{{ asset('storage/' . $mhs->foto) }}" class="foto-mahasiswa" alt="{{ $mhs->nama }}">
+                                                    @else
+                                                        <span class="text-muted">-</span>
+                                                    @endif
+                                                </td>
+                                                <td>{{ $mhs->nama }}</td>
+                                                <td>{{ $mhs->nim }}</td>
+                                                <td class="text-center">
+                                                    <form action="{{ route('mahasiswa.destroy', $mhs->id) }}" method="POST" class="d-inline">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="btn btn-sm btn-danger btn-action" onclick="return confirm('Yakin hapus mahasiswa ini?')">
+                                                            <i class="bi bi-trash"></i> Hapus
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        @endforeach
-    </div>
+            @endforeach
+        </div>
+    @endif
 
 </div>
 @endsection

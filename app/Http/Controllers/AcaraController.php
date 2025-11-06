@@ -12,10 +12,17 @@ class AcaraController extends Controller
      */
     public function index()
     {
-        $acaras = Acara::all();
-        return view('admin.indexberita', compact('acaras'));
+        $acaras = Acara::all(); 
+        return view('admin.indexacara', compact('acaras'));
     }
 
+     public function indexMain()
+    {
+        $acaras = Acara::orderBy('tanggal', 'desc')->get();
+        return view('main.indexacara', compact('acaras'));
+    }
+
+    
     /**
      * Show the form for creating a new resource.
      */
@@ -44,20 +51,16 @@ class AcaraController extends Controller
         }
 
         Acara::create($data);
-        return redirect()->route('admin.berita')->with('success', 'Acara berhasil ditambahkan');
+        return redirect()->route('admin.acara')->with('success', 'Acara berhasil ditambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     */
+  
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    
     public function edit(string $id)
     {
         //
@@ -83,7 +86,7 @@ class AcaraController extends Controller
         }
 
         $acara->update($data);
-        return redirect()->route('admin.berita')->with('success', 'Acara berhasil diupdate');
+        return redirect()->route('admin.acara')->with('success', 'Acara berhasil diupdate');
     }
 
     /**
@@ -92,17 +95,13 @@ class AcaraController extends Controller
     public function destroy(Acara $acara)
     {
         $acara->delete();
-        return redirect()->route('admin.berita')->with('success', 'Acara berhasil dihapus');
+        return redirect()->route('admin.acara')->with('success', 'Acara berhasil dihapus');
     }
 
     /**
      * Display a listing of the resource for the main page.
      */
-    public function indexMain()
-    {
-        $acaras = Acara::orderBy('tanggal', 'desc')->get();
-        return view('main.indexberita', compact('acaras'));
-    }
+   
 
     /**
      * Display the detail of the specified resource.
@@ -110,6 +109,6 @@ class AcaraController extends Controller
     public function showDetail($id)
     {
         $acara = Acara::findOrFail($id);
-        return view('main.detailberita', compact('acara'));
+        return view('main.detailacara', compact('acara'));
     }
 }

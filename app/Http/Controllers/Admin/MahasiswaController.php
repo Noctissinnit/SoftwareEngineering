@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Imports\MahasiswaImport;
 use App\Models\Mahasiswa;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -12,10 +13,13 @@ class MahasiswaController extends Controller
 {
     public function index()
     {
-        $mahasiswas = Mahasiswa::all()->groupBy('semester');
+        $mahasiswas = \App\Models\User::role('mahasiswa')
+            ->whereNotNull('angkatan')
+            ->get()
+            ->groupBy('angkatan'); // grup otomatis berdasarkan angkatan
         return view('admin.indexmahasiswa', compact('mahasiswas'));
     }
-
+    
     public function store(Request $request)
     {
         $request->validate([
@@ -28,11 +32,11 @@ class MahasiswaController extends Controller
         if ($request->hasFile('foto')) {
             $data['foto'] = $request->file('foto')->store('mahasiswa', 'public');
         }
-        Mahasiswa::create($data);
-        return back()->with('success', 'Mahasiswa berhasil ditambahkan');
+        User::create($data);
+        return back()->with('success', 'User berhasil ditambahkan');
     }
 
-    public function destroy(Mahasiswa $mahasiswa)
+    public function destroy(User $mahasiswa)
     {
         if ($mahasiswa->foto && \Storage::disk('public')->exists($mahasiswa->foto)) {
             \Storage::disk('public')->delete($mahasiswa->foto);

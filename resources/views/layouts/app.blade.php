@@ -236,25 +236,23 @@
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <img src="{{ asset('images/se.png') }}" alt="Logo">
-            <h4>Admin SE</h4>
+            <h4>Dashboard SE</h4>
         </div>
 
         <nav class="mt-3 flex-grow-1">
             <ul class="nav flex-column">
+                @role('admin')
                 <li>
                     <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
                         <i class="bi bi-speedometer2"></i> <span>Dashboard</span>
                     </a>
                 </li>
-                <li>
-                    <a class="nav-link {{ request()->routeIs('admin.berita') ? 'active' : '' }}" href="{{ route('admin.berita') }}">
-                        <i class="bi bi-newspaper"></i> <span>Berita</span>
-                    </a>
-                </li>
+                   <li>
                     <a class="nav-link {{ request()->routeIs('admin.dokumen') ? 'active' : '' }}" href="{{ route('admin.dokumen') }}">
                         <i class="bi bi-folder2-open"></i> <span>Dokumen</span>
                     </a>
                 </li>
+
                 <li>
                     <a class="nav-link {{ request()->routeIs('admin.mahasiswa') ? 'active' : '' }}" href="{{ route('admin.mahasiswa') }}">
                         <i class="bi bi-people-fill"></i> <span>Mahasiswa</span>
@@ -265,6 +263,21 @@
                         <i class="bi bi-person-badge-fill"></i> <span>Profil Dosen</span>
                     </a>
                 </li>
+                @endrole
+                @role('dosen')
+                <li>
+                    <a class="nav-link {{ request()->routeIs('dosen.dashboard') ? 'active' : '' }}" href="{{ route('dosen.dashboard') }}">
+                        <i class="bi bi-speedometer2"></i> <span>Dashboard</span>
+                    </a>
+                </li>
+                @endrole
+                <li>
+                    <a class="nav-link {{ request()->routeIs('admin.berita.index') ? 'active' : '' }}" href="{{ route('admin.berita.index') }}">
+                        <i class="bi bi-newspaper"></i> <span>Berita</span>
+                    </a>
+                </li>
+             
+             
             </ul>
         </nav>
 

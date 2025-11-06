@@ -19,7 +19,7 @@
                                 </h5>
                                 <p class="card-text text-muted small mb-2">{{ \Carbon\Carbon::parse($acara->tanggal)->format('d M Y') }}</p>
                                 <p class="card-text flex-grow-1">{{ Str::limit(strip_tags($acara->deskripsi), 120) }}</p>
-                                <a href="{{ route('berita.detail', $acara->id) }}" class="mt-auto btn btn-primary">Baca Selengkapnya</a>
+                                <a href="{{ route('acara.detail', $acara->id) }}" class="mt-auto btn btn-primary">Baca Selengkapnya</a>
                             </div>
                         </div>
                     </div>
