@@ -96,6 +96,9 @@
                     <div class="col-md-4 mb-4">
                         <div class="card h-100 shadow-sm">
                             <div class="card-body">
+                                @if($acara->foto)
+                                <img src="{{ asset('storage/'.$acara->foto) }}" class="card-img-top" style="height:200px; object-fit:cover;">
+                                @endif
                                 <h5 class="card-title fw-semibold">{{ $acara->judul }}</h5>
                                 <p class="card-text text-muted mb-1"><i class="bi bi-calendar-event"></i> {{ $acara->tanggal->format('d M Y') }}</p>
                                 <p class="card-text">{{ Str::limit(strip_tags($acara->deskripsi), 100) }}</p>

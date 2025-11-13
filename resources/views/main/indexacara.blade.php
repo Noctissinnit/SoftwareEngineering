@@ -13,7 +13,7 @@
                             @endif
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title">
-                                    <a href="{{ route('berita.detail', $acara->id) }}" class="text-decoration-none text-dark">
+                                    <a href="{{ route('acara.detail', $acara->id) }}" class="text-decoration-none text-dark">
                                         {{ Str::limit($acara->judul, 70) }}
                                     </a>
                                 </h5>

@@ -276,6 +276,13 @@
                         <i class="bi bi-newspaper"></i> <span>Berita</span>
                     </a>
                 </li>
+                <li>
+                    <a class="nav-link {{ request()->routeIs('acara.index') ? 'active' : '' }}"
+                    href="{{ route('acara.index') }}">
+                    <i class="bi bi-newspaper"></i> <span>Acara</span>
+                    </a>
+                </li>
+             
              
              
             </ul>
