@@ -5,7 +5,7 @@
 
     {{-- Judul Halaman --}}
     <div class="text-center mb-5">
-        <h1 class="fw-bold text-primary">Rencana Pembelajaran Semester</h1>
+        <h1 class="fw-bold text-primary">Daftar Mata Kuliah</h1>
         <p class="text-muted">Program Studi Software Engineering - Universitas Pignatelli Triputra</p>
     </div>
 
