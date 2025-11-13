@@ -66,7 +66,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{{ route('visi-misi')}}">Visi & Misi</a></li>
-                            <li><a class="dropdown-item" href="{{ route('sejarah-prodi')}}">Sejarah Prodi</a></li>
+                            <li><a class="dropdown-item" href="{{ route('tujuan-prodi')}}">Tujuan Prodi</a></li>
                         </ul>
                     </li>
 
@@ -89,7 +89,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{{route('dokumen')}}">Dokumen</a></li>
-                            <li><a class="dropdown-item" href="{{route('rps-index')}}">Rencana Pembelajaran Semester</a></li>
+                            <li><a class="dropdown-item" href="{{route('daftar-mata-kuliah-index')}}">Daftar Mata kuliah</a></li>
                         </ul>
                     </li>
 
