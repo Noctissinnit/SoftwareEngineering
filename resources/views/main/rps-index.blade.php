@@ -52,7 +52,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="3" class="text-center">Belum ada data RPS.</td>
+                                <td colspan="3" class="text-center">Belum ada data Daftar Mata Kuliah.</td>
                             </tr>
                             @endforelse
                         </tbody>
