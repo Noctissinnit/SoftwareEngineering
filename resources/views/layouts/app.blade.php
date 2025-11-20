@@ -17,20 +17,25 @@
         }
 
         /* === SIDEBAR === */
-        .sidebar {
+       .sidebar {
             width: 260px;
-            height: 100vh;
-            background: linear-gradient(180deg, #0342A6 0%, #022B6C 100%);
-            color: #fff;
-            position: fixed;
-            top: 0;
-            left: 0;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.15);
-            transition: all 0.3s ease;
-            z-index: 200;
-        }
+                height: 100vh;
+                background: linear-gradient(180deg, #0342A6 0%, #022B6C 100%);
+                color: #fff;
+                position: fixed;
+                top: 0;
+                left: 0;
+                display: flex;
+                flex-direction: column;
+                box-shadow: 2px 0 10px rgba(0,0,0,0.15);
+                transition: all 0.3s ease;
+                z-index: 200;
+
+                /* Tambahkan ini */
+                overflow-y: auto;
+                overflow-x: hidden;
+            }
+
 
         .sidebar.collapsed {
             width: 80px;
@@ -62,6 +67,10 @@
             color: #FFD700;
             font-size: 1.1rem;
             letter-spacing: 0.5px;
+        }
+        .sidebar nav {
+            overflow-y: auto;
+            flex-grow: 1;
         }
 
         .sidebar nav ul {
@@ -143,6 +152,19 @@
 
         .main-content.expanded {
             margin-left: 80px;
+        }
+
+        .sidebar nav::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar nav::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.3);
+            border-radius: 10px;
+        }
+
+        .sidebar nav::-webkit-scrollbar-thumb:hover {
+            background: rgba(255,255,255,0.5);
         }
 
         /* === TOPBAR === */
@@ -270,6 +292,13 @@
                         <i class="bi bi-speedometer2"></i> <span>Dashboard</span>
                     </a>
                 </li>
+                <li>
+                    <a class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}"
+                    href="{{ route('users.index') }}">
+                        <i class="bi bi-folder2-open"></i> 
+                        <span>Daftar User(Portofolio)</span>
+                    </a>
+                </li>
                 @endrole
                 <li>
                     <a class="nav-link {{ request()->routeIs('admin.berita.index') ? 'active' : '' }}" href="{{ route('admin.berita.index') }}">
@@ -282,6 +311,39 @@
                     <i class="bi bi-newspaper"></i> <span>Acara</span>
                     </a>
                 </li>
+                <li>
+                    <a class="nav-link {{ request()->routeIs('admin.portfolio.index') ? 'active' : '' }}"
+                    href="{{ route('admin.portfolio.index') }}">
+                        <i class="bi bi-folder2-open"></i> 
+                        <span>Portofolio</span>
+                    </a>
+                </li>
+                 <li>
+                    <a class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}"
+                    href="{{ route('users.index') }}">
+                        <i class="bi bi-folder2-open"></i> 
+                        <span>Daftar User(Portofolio)</span>
+                    </a>
+                </li>
+                @role('mahasiswa')
+                 <li>
+                    <a class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}"
+                    href="{{ route('users.index') }}">
+                        <i class="bi bi-folder2-open"></i> 
+                        <span>Daftar User(Portofolio)</span>
+                    </a>
+                </li>
+                @endrole
+                 <li>
+                    <a class="nav-link {{ request()->routeIs('admin.galeri.index') ? 'active' : '' }}"
+                    href="{{ route('admin.galeri.index') }}">
+                        <i class="bi bi-images"></i>
+                        <span>Galeri</span>
+                    </a>
+                </li>
+                
+                
+
              
              
              

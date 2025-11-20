@@ -117,7 +117,7 @@
             <i class="bi bi-plus-circle me-2"></i>Tambah Mata Kuliah
         </div>
         <div class="card-body">
-            <form action="{{ route('rps.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.rps.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row g-3 align-items-end">
                     <div class="col-md-4">
@@ -189,7 +189,7 @@
                                                 @else
                                                     <span class="text-muted">Belum ada file</span>
                                                 @endif
-                                                <form action="{{ route('rps.destroy', $item->id) }}" method="POST" class="d-inline">
+                                                <form action="{{ route('admin.rps.destroy', $item->id) }}" method="POST" class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button class="btn btn-sm btn-danger btn-action" title="Hapus" onclick="return confirm('Yakin hapus RPS ini?')">

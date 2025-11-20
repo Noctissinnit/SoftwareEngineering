@@ -30,6 +30,13 @@
     </style>
 </head>
 <body>
+    @php
+        function isActive($routeName)
+        {
+            return request()->routeIs($routeName) ? 'active' : '';
+        }
+    @endphp
+
     <nav class="navbar navbar-expand-lg bg-white shadow-sm">
         <div class="container">
             <!-- Logo -->
@@ -48,55 +55,64 @@
 
             <!-- Menu -->
             <div class="collapse navbar-collapse justify-content-center" id="mainNavbar">
-                <ul class="navbar-nav mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ route('home') }}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('acara') }}">Event</a>
-                    </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('berita') }}">Berita</a>
-                    </li>
+               <ul class="navbar-nav mb-2 mb-lg-0">
 
-                    <!-- Prodi dropdown -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                            Prodi
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{ route('visi-misi')}}">Visi & Misi</a></li>
-                            <li><a class="dropdown-item" href="{{ route('sejarah-prodi')}}">Sejarah Prodi</a></li>
-                        </ul>
-                    </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ isActive('home') }}" href="{{ route('home') }}">Home</a>
+                </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('profildosen') }}">Profil Dosen</a>
-                    </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ isActive('acara') }}" href="{{ route('acara') }}">Event</a>
+                </li>
 
-                    <!-- Kemahasiswaan dropdown -->
-                    <li class="nav-item ">
-                        <a class="nav-link " href="{{ route('mahasiswa') }}" >
-                            Kemahasiswaan
-                        </a>
-                       
-                    </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ isActive('berita') }}" href="{{ route('berita') }}">Berita</a>
+                </li>
 
-                    <!-- Dokumen dropdown -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                            Dokumen
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{route('dokumen')}}">Dokumen</a></li>
-                            <li><a class="dropdown-item" href="{{route('rps-index')}}">Rencana Pembelajaran Semester</a></li>
-                        </ul>
-                    </li>
+                <!-- Prodi -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle 
+                        {{ isActive('visi-misi') }} {{ isActive('sejarah-prodi') }}"
+                        href="#" data-bs-toggle="dropdown">
+                        Prodi
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item {{ isActive('visi-misi') }}" href="{{ route('visi-misi') }}">Visi & Misi</a></li>
+                        <li><a class="dropdown-item {{ isActive('sejarah-prodi') }}" href="{{ route('sejarah-prodi') }}">Sejarah Prodi</a></li>
+                    </ul>
+                </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('pmb') }}">PMB</a>
-                    </li>
-                </ul>
+                <li class="nav-item">
+                    <a class="nav-link {{ isActive('profildosen') }}" href="{{ route('profildosen') }}">Profil Dosen</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ isActive('galeri') }}" href="{{ route('galeri') }}">Galeri</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ isActive('mahasiswa') }}" href="{{ route('mahasiswa') }}">Kemahasiswaan</a>
+                </li>
+
+                <!-- Dokumen -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle 
+                        {{ isActive('dokumen') }} {{ isActive('rps-index') }}"
+                        href="#" data-bs-toggle="dropdown">
+                        Dokumen
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item {{ isActive('dokumen') }}" href="{{route('dokumen')}}">Dokumen</a></li>
+                        <li><a class="dropdown-item {{ isActive('rps-index') }}" href="{{route('rps-index')}}">Rencana Pembelajaran Semester</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ isActive('pmb') }}" href="{{ route('pmb') }}">PMB</a>
+                </li>
+
+            </ul>
+
             </div>
 
        
@@ -116,7 +132,7 @@
                         </a>
                       <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userDropdown">
                             <li>
-                                <a class="dropdown-item" href="{{ route('profile') }}">
+                                <a class="dropdown-item" href="{{ route('profile.index') }}">
                                     <i class="bi bi-person me-2"></i> Profile
                                 </a>
                             </li>

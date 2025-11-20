@@ -9,10 +9,14 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\Admin\MahasiswaController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\GaleriController;
+use App\Http\Controllers\Admin\PortfolioController;
 use App\Http\Controllers\MahasiswaPageController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RpsController;
+use App\Http\Controllers\UserDirectoryController;
+use App\Models\Galeri;
 use Illuminate\Support\Facades\Route;
 
 
@@ -45,34 +49,74 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
-   Route::middleware(['auth', 'role:admin|dosen'])->group(function () {
+   Route::middleware(['role:admin|dosen'])->group(function () {
         Route::get('/adminacara', [AcaraController::class, 'index'])->name('admin.acara');
     });
 
+    Route::get('/galeri', function () {
+        $galeri = Galeri::latest()->get();
+        return view('galeri.index', compact('galeri'));
+    })->name('galeri');
+
+
+    Route::get('/profile', [ProfileController::class, 'index'])
+        ->name('profile.index');
+
+    // Update Profil Saya
+    Route::post('/profile/update', [ProfileController::class, 'update'])
+        ->name('profile.update');
+
+    // Upload Portfolio
+    Route::post('/profile/portfolio/upload', [ProfileController::class, 'uploadPortfolio'])
+        ->name('profile.portfolio.upload');
+
+    // Hapus Portfolio
+    Route::delete('/profile/portfolio/{id}', [ProfileController::class, 'deletePortfolio'])
+        ->name('profile.portfolio.delete');
+
+    // Daftar Mahasiswa Satu Kelas
+    Route::get('/kelas/mahasiswa', [ProfileController::class, 'classmates'])
+        ->name('profile.classmates');
+
+    // Lihat Profil Mahasiswa Lain
+    Route::get('/profile/{id}', [ProfileController::class, 'show'])
+        ->name('profile.show');
+
+      // Daftar semua mahasiswa/dosen
+    Route::get('/users', [UserDirectoryController::class, 'index'])
+        ->name('users.index');
+
+    // Detail profil
+    Route::get('/users/{id}', [UserDirectoryController::class, 'show'])
+        ->name('users.show');
     
 });
 
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
-    Route::get('/', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
     //Route CRUD BERITA
-    Route::get('/berita', [BeritaController::class, 'adminIndex'])->name('admin.berita.index');
+    Route::get('/berita', [BeritaController::class, 'adminIndex'])->name('berita.index');
     // Route::get('/berita/create', [BeritaController::class, 'create'])->name('admin.berita.create');
-    Route::post('/berita', [BeritaController::class, 'store'])->name('admin.berita.store');
-    Route::get('/berita/{berita}/edit', [BeritaController::class, 'edit'])->name('admin.berita.edit');
-    Route::put('/berita/{berita}', [BeritaController::class, 'update'])->name('admin.berita.update');
-    Route::delete('/berita/{berita}', [BeritaController::class, 'destroy'])->name('admin.berita.destroy');
+    Route::post('/berita', [BeritaController::class, 'store'])->name('berita.store');
+    Route::get('/berita/{berita}/edit', [BeritaController::class, 'edit'])->name('berita.edit');
+    Route::put('/berita/{berita}', [BeritaController::class, 'update'])->name('berita.update');
+    Route::delete('/berita/{berita}', [BeritaController::class, 'destroy'])->name('berita.destroy');
 
-    Route::get('/dokumen', [DokumenController::class, 'index'])->name('admin.dokumen');
+    Route::get('/dokumen', [DokumenController::class, 'index'])->name('dokumen');
     Route::post('/dokumen', [DokumenController::class, 'store'])->name('rps.store');
     Route::delete('/dokumen/{rps}', [DokumenController::class, 'destroy'])->name('rps.destroy');
-    Route::get('/mahasiswa', [MahasiswaController::class, 'index'])->name('admin.mahasiswa');
+    Route::get('/mahasiswa', [MahasiswaController::class, 'index'])->name('mahasiswa');
     Route::post('/mahasiswa', [MahasiswaController::class, 'store'])->name('mahasiswa.store');
     Route::delete('/mahasiswa/{mahasiswa}', [MahasiswaController::class, 'destroy'])->name('mahasiswa.destroy');
-    Route::get('/profildosen', [DosenController::class, 'indexAdmin'])->name('admin.profildosen');
+    Route::get('/profildosen', [DosenController::class, 'indexAdmin'])->name('profildosen');
     Route::post('/mahasiswa/import', [MahasiswaController::class, 'import'])->name('mahasiswa.import');
+
+    //CRUD Galeri
+    Route::resource('galeri', GaleriController::class);
+
+    //CRUD Portofolio
+    Route::resource('portfolio', PortfolioController::class);
 
     //Route CRUD ACARA
     Route::resource('acara', AcaraController::class);
@@ -87,6 +131,6 @@ Route::middleware(['auth','role:dosen'])->prefix('dosen')->group(function () {
 
 });
 
-Route::middleware(['auth','role:mahasiswa'])->prefix('mahasiswa')->group(function () {
+Route::middleware(['auth','role:mahasiswa'])->prefix('mahasiswa')->name('user.')->group(function () {
    Route::get('/dashboard', [MahasiswaPageController::class, 'index'])->name('mahasiswa.dashboard');
 });

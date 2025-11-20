@@ -96,7 +96,7 @@
     <div class="card mb-4">
         <div class="card-header d-flex justify-content-between align-items-center">
             <span><i class="bi bi-person-plus me-2"></i>Tambah Mahasiswa</span>
-            <form action="{{ route('mahasiswa.import') }}" method="POST" enctype="multipart/form-data" class="d-flex align-items-center">
+            <form action="{{ route('admin.mahasiswa.import') }}" method="POST" enctype="multipart/form-data" class="d-flex align-items-center">
                 @csrf
                 <input type="file" name="file" class="form-control form-control-sm me-2" accept=".xlsx,.xls,.csv" required>
                 <button type="submit" class="btn btn-success btn-sm">
@@ -106,7 +106,7 @@
         </div>
 
         <div class="card-body">
-            <form action="{{ route('mahasiswa.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.mahasiswa.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row g-3 align-items-end">
                     <div class="col-md-3">

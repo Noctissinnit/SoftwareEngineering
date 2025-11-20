@@ -222,7 +222,7 @@
 {{-- Modal Tambah Acara --}}
 <div class="modal fade" id="modalTambahAcara" tabindex="-1" aria-labelledby="modalTambahAcaraLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <form action="{{ route('acara.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.acara.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="modal-content">
                 <div class="modal-header bg-primary text-white">

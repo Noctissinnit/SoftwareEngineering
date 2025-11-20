@@ -95,7 +95,7 @@
     {{-- Modal Tambah --}}
     <div class="modal fade" id="modalTambahDosen" tabindex="-1" aria-labelledby="modalTambahDosenLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <form action="{{ route('dosen.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.dosen.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
@@ -164,7 +164,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <form action="{{ route('dosen.destroy', $dosen->id) }}" method="POST" class="d-inline">
+                                    <form action="{{ route('admin.dosen.destroy', $dosen->id) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
                                         <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus data dosen ini?')">
