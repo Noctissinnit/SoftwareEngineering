@@ -36,6 +36,11 @@ Route::get('/profildosen', [DosenController::class, 'indexMain'])->name('profild
 Route::view('/sejarah-prodi', 'main.sejarah-prodi')->name('sejarah-prodi');
 Route::view('/visi-misi', 'main.visi-misi')->name('visi-misi');
 
+
+Route::get('/galeri', function () {
+        $galeri = Galeri::latest()->get();
+        return view('galeri.index', compact('galeri'));
+    })->name('galeri');
 //Route RPS
 Route::get('/rps-index', [RpsController::class, 'index'])->name('rps-index');
 
@@ -54,10 +59,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/adminacara', [AcaraController::class, 'index'])->name('admin.acara');
     });
 
-    Route::get('/galeri', function () {
-        $galeri = Galeri::latest()->get();
-        return view('galeri.index', compact('galeri'));
-    })->name('galeri');
+ 
 
 
     Route::get('/profile', [ProfileController::class, 'index'])
@@ -131,6 +133,6 @@ Route::middleware(['auth','role:dosen'])->prefix('dosen')->group(function () {
 
 });
 
-Route::middleware(['auth','role:mahasiswa'])->prefix('mahasiswa')->name('user.')->group(function () {
-   Route::get('/dashboard', [MahasiswaPageController::class, 'index'])->name('mahasiswa.dashboard');
+Route::middleware(['auth','role:mahasiswa'])->prefix('mahasiswa')->name('mahasiswa.')->group(function () {
+   Route::get('/dashboard', [MahasiswaPageController::class, 'index'])->name('dashboard');
 });

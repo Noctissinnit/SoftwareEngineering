@@ -1,29 +1,128 @@
 @extends('layouts.main')
 
 @section('content')
-<div class="container my-5">
-    <h1 class="fw-bold text-primary text-center mb-4">Berita Terbaru</h1>
 
-    <div class="row g-4">
-        @foreach($beritas as $berita)
-        <div class="col-md-4">
-            <div class="card shadow-sm h-100">
-                @if($berita->gambar)
-                    <img src="{{ asset('storage/'.$berita->gambar) }}" class="card-img-top" style="height:200px;object-fit:cover;">
-                @endif
-                <div class="card-body">
-                    <h5 class="fw-bold">{{ $berita->judul }}</h5>
-                    <p class="text-muted small">{{ $berita->created_at->format('d M Y') }}</p>
-                    <p>{{ Str::limit(strip_tags($berita->isi), 100) }}</p>
-                    <a href="{{ route('berita.show', $berita) }}" class="btn btn-outline-primary btn-sm">Baca Selengkapnya</a>
+<style>
+    /* ----------- PAGE HEADER ----------- */
+    .page-title-section {
+        background: linear-gradient(135deg, #03378c 0%, #0056d2 100%);
+        padding: 80px 0;
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+        color: white;
+        text-align: center;
+    }
+
+    .page-title-section h1 {
+        font-weight: 700;
+        font-size: 2.8rem;
+        animation: fadeInDown 1s ease;
+    }
+
+    @keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-20px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ----------- CARD GALERI ----------- */
+    .gallery-card {
+        border-radius: 10px;
+        border: none;
+        overflow: hidden;
+        transition: transform .3s ease, box-shadow .3s ease;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+        background: #fff;
+        cursor: pointer;
+    }
+
+    .gallery-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    }
+
+    .gallery-card img {
+        width: 100%;
+        height: 240px;
+        object-fit: cover;
+    }
+
+    .gallery-overlay {
+        background: rgba(3, 55, 140, 0.85);
+        color: #fff;
+        padding: 10px 15px;
+        border-radius: 0 0 10px 10px;
+    }
+
+    .gallery-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+
+    .gallery-desc {
+        font-size: 0.85rem;
+        opacity: .9;
+    }
+
+    /* Masonry Grid */
+    .gallery-grid {
+        column-count: 3;
+        column-gap: 1.2rem;
+    }
+
+    @media(max-width: 992px) {
+        .gallery-grid { column-count: 2; }
+    }
+
+    @media(max-width: 576px) {
+        .gallery-grid { column-count: 1; }
+    }
+
+    .gallery-item {
+        break-inside: avoid;
+        margin-bottom: 1.2rem;
+    }
+</style>
+
+{{-- ----------- HEADER ----------- --}}
+<section class="page-title-section">
+    <div class="container">
+        <h1>Galeri</h1>
+        <p class="mt-2" style="opacity: 0.9;">Kumpulan dokumentasi kegiatan Program Studi Software Engineering</p>
+    </div>
+</section>
+
+{{-- ----------- GALERI LIST ----------- --}}
+<section class="py-5">
+    <div class="container">
+
+        <div class="gallery-grid">
+
+            @foreach ($galeri as $item)
+                <div class="gallery-item">
+
+                    <div class="gallery-card">
+
+                        {{-- Foto --}}
+                        <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}">
+
+                        {{-- Overlay --}}
+                        <div class="gallery-overlay">
+                            <div class="gallery-title">{{ $item->title }}</div>
+                            <div class="gallery-desc">{{ $item->description }}</div>
+                        </div>
+
+                    </div>
+
                 </div>
-            </div>
-        </div>
-        @endforeach
-    </div>
+            @endforeach
 
-    <div class="mt-4 d-flex justify-content-center">
-        {{ $beritas->links() }}
+        </div>
+
     </div>
-</div>
+</section>
+
 @endsection

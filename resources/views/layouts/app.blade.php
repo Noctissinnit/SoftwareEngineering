@@ -285,6 +285,41 @@
                         <i class="bi bi-person-badge-fill"></i> <span>Profil Dosen</span>
                     </a>
                 </li>
+                 <li>
+                    <a class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}"
+                    href="{{ route('users.index') }}">
+                        <i class="bi bi-folder2-open"></i> 
+                        <span>Daftar User(Portofolio)</span>
+                    </a>
+                </li>
+                  <li>
+                    <a class="nav-link {{ request()->routeIs('admin.galeri.index') ? 'active' : '' }}"
+                    href="{{ route('admin.galeri.index') }}">
+                        <i class="bi bi-images"></i>
+                        <span>Galeri</span>
+                    </a>
+                </li>
+                 <li>
+                    <a class="nav-link {{ request()->routeIs('admin.berita.index') ? 'active' : '' }}" href="{{ route('admin.berita.index') }}">
+                        <i class="bi bi-newspaper"></i> <span>Berita</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link {{ request()->routeIs('acara.index') ? 'active' : '' }}"
+                    href="{{ route('acara.index') }}">
+                    <i class="bi bi-newspaper"></i> <span>Acara</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a class="nav-link {{ request()->routeIs('admin.portfolio.index') ? 'active' : '' }}"
+                    href="{{ route('admin.portfolio.index') }}">
+                        <i class="bi bi-folder2-open"></i> 
+                        <span>Portofolio</span>
+                    </a>
+                </li>
+                
+                
                 @endrole
                 @role('dosen')
                 <li>
@@ -299,8 +334,8 @@
                         <span>Daftar User(Portofolio)</span>
                     </a>
                 </li>
-                @endrole
-                <li>
+
+                 <li>
                     <a class="nav-link {{ request()->routeIs('admin.berita.index') ? 'active' : '' }}" href="{{ route('admin.berita.index') }}">
                         <i class="bi bi-newspaper"></i> <span>Berita</span>
                     </a>
@@ -311,20 +346,9 @@
                     <i class="bi bi-newspaper"></i> <span>Acara</span>
                     </a>
                 </li>
-                <li>
-                    <a class="nav-link {{ request()->routeIs('admin.portfolio.index') ? 'active' : '' }}"
-                    href="{{ route('admin.portfolio.index') }}">
-                        <i class="bi bi-folder2-open"></i> 
-                        <span>Portofolio</span>
-                    </a>
-                </li>
-                 <li>
-                    <a class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}"
-                    href="{{ route('users.index') }}">
-                        <i class="bi bi-folder2-open"></i> 
-                        <span>Daftar User(Portofolio)</span>
-                    </a>
-                </li>
+                @endrole
+               
+              
                 @role('mahasiswa')
                  <li>
                     <a class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}"
@@ -334,14 +358,7 @@
                     </a>
                 </li>
                 @endrole
-                 <li>
-                    <a class="nav-link {{ request()->routeIs('admin.galeri.index') ? 'active' : '' }}"
-                    href="{{ route('admin.galeri.index') }}">
-                        <i class="bi bi-images"></i>
-                        <span>Galeri</span>
-                    </a>
-                </li>
-                
+               
                 
 
              
