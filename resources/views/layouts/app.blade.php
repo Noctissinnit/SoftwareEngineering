@@ -317,10 +317,9 @@
                         <i class="bi bi-folder2-open"></i> 
                         <span>Portofolio</span>
                     </a>
-                </li>
-                
-                
+                </li>         
                 @endrole
+                
                 @role('dosen')
                 <li>
                     <a class="nav-link {{ request()->routeIs('dosen.dashboard') ? 'active' : '' }}" href="{{ route('dosen.dashboard') }}">

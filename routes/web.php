@@ -55,6 +55,10 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
 
+      
+    Route::resource('acara', AcaraController::class);
+    
+
    Route::middleware(['role:admin|dosen'])->group(function () {
         Route::get('/adminacara', [AcaraController::class, 'index'])->name('admin.acara');
     });
@@ -128,8 +132,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
 Route::middleware(['auth','role:dosen'])->prefix('dosen')->group(function () {
     Route::get('/dashboard', [DosenController::class, 'index'])->name('dosen.dashboard');
-    
-    Route::resource('acara', AcaraController::class);
+  
 
 });
 
