@@ -306,7 +306,7 @@
                 </li>
                 <li>
                     <a class="nav-link {{ request()->routeIs('acara.index') ? 'active' : '' }}"
-                    href="{{ route('acara.index') }}">
+                    href="{{ route('admin.acara.index') }}">
                     <i class="bi bi-newspaper"></i> <span>Acara</span>
                     </a>
                 </li>
@@ -319,7 +319,7 @@
                     </a>
                 </li>         
                 @endrole
-                
+
                 @role('dosen')
                 <li>
                     <a class="nav-link {{ request()->routeIs('dosen.dashboard') ? 'active' : '' }}" href="{{ route('dosen.dashboard') }}">

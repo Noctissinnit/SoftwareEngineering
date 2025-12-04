@@ -26,8 +26,8 @@ Route::get('/', [MainController::class, 'home'])->name('home');
 Route::get('/berita', [BeritaController::class, 'index'])->name('berita');
 Route::get('/berita/{berita}', [BeritaController::class, 'show'])->name('berita.show');
 //Route Acara
-Route::get('/acara', [AcaraController::class, 'indexMain'])->name('acara');
-Route::get('/berita/acara/{id}', [AcaraController::class, 'showDetail'])->name('acara.detail');
+Route::get('/acara', [MainController::class, 'indexMain'])->name('acaramain');
+Route::get('/berita/acara/{id}', [MainController::class, 'showDetail'])->name('acara.detail');
 
 Route::view('/dokumen', 'main.indexdokumen')->name('dokumen');
 Route::get('/mahasiswa', [MainController::class, 'mahasiswa'])->name('mahasiswa');
@@ -55,16 +55,15 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
 
-      
-    Route::resource('acara', AcaraController::class);
-    
-
+     
    Route::middleware(['role:admin|dosen'])->group(function () {
         Route::get('/adminacara', [AcaraController::class, 'index'])->name('admin.acara');
     });
 
- 
-
+     
+    Route::prefix('admin')->group(function () {
+        Route::resource('acara', AcaraController::class);
+    });
 
     Route::get('/profile', [ProfileController::class, 'index'])
         ->name('profile.index');

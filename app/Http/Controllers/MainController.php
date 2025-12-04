@@ -40,4 +40,17 @@ class MainController extends Controller
     public function profildosen() {
         return view('main.indexprofildosen');
     }
+
+    public function indexMain()
+    {
+        $acaras = Acara::orderBy('tanggal', 'desc')->get();
+        return view('main.indexacara', compact('acaras'));
+    }
+
+        public function showDetail($id)
+    {
+        $acara = Acara::findOrFail($id);
+        return view('main.detailacara', compact('acara'));
+    }
+
 }

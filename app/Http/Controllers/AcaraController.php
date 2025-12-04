@@ -16,11 +16,7 @@ class AcaraController extends Controller
         return view('admin.indexacara', compact('acaras'));
     }
 
-     public function indexMain()
-    {
-        $acaras = Acara::orderBy('tanggal', 'desc')->get();
-        return view('main.indexacara', compact('acaras'));
-    }
+   
 
     
     /**
@@ -106,9 +102,4 @@ class AcaraController extends Controller
     /**
      * Display the detail of the specified resource.
      */
-    public function showDetail($id)
-    {
-        $acara = Acara::findOrFail($id);
-        return view('main.detailacara', compact('acara'));
-    }
 }
