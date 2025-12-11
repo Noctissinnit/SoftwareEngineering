@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [MainController::class, 'home'])->name('home');
 //Route Berita
-Route::get('/berita', [BeritaController::class, 'index'])->name('berita');
+Route::get('/main/berita', [BeritaController::class, 'index'])->name('berita');
 Route::get('/berita/{berita}', [BeritaController::class, 'show'])->name('berita.show');
 //Route Acara
 Route::get('/acara', [MainController::class, 'indexMain'])->name('acara.index');
