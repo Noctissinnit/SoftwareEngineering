@@ -172,7 +172,7 @@
                 <ul class="navbar-nav mb-2 mb-lg-0">
 
                     <li class="nav-item"><a class="nav-link {{ isActive('home') }}" href="{{ route('home') }}">Home</a></li>
-                    <li class="nav-item"><a class="nav-link {{ isActive('acaramain') }}" href="{{ route('acaramain') }}">Event</a></li>
+                    <li class="nav-item"><a class="nav-link {{ isActive('acara.index') }}" href="{{ route('acara.index') }}">Event</a></li>
                     <li class="nav-item"><a class="nav-link {{ isActive('berita') }}" href="{{ route('berita') }}">Berita</a></li>
 
                     <li class="nav-item dropdown">

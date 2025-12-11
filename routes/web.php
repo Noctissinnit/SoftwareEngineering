@@ -27,7 +27,7 @@ Route::get('/', [MainController::class, 'home'])->name('home');
 Route::get('/berita', [BeritaController::class, 'index'])->name('berita');
 Route::get('/berita/{berita}', [BeritaController::class, 'show'])->name('berita.show');
 //Route Acara
-Route::get('/acara', [MainController::class, 'indexMain'])->name('acaramain');
+Route::get('/acara', [MainController::class, 'indexMain'])->name('acara.index');
 Route::get('/berita/acara/{id}', [MainController::class, 'showDetail'])->name('acara.detail');
 
 Route::view('/dokumen', 'main.indexdokumen')->name('dokumen');
@@ -97,18 +97,25 @@ Route::middleware(['auth'])->group(function () {
     // Detail profil
     Route::get('/users/{id}', [UserDirectoryController::class, 'show'])
         ->name('users.show');
-    
-});
 
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
-    //Route CRUD BERITA
+
     Route::get('/berita', [BeritaController::class, 'adminIndex'])->name('berita.index');
     // Route::get('/berita/create', [BeritaController::class, 'create'])->name('admin.berita.create');
     Route::post('/berita', [BeritaController::class, 'store'])->name('berita.store');
     Route::get('/berita/{berita}/edit', [BeritaController::class, 'edit'])->name('berita.edit');
     Route::put('/berita/{berita}', [BeritaController::class, 'update'])->name('berita.update');
     Route::delete('/berita/{berita}', [BeritaController::class, 'destroy'])->name('berita.destroy');
+
+
+    //Route CRUD ACARA
+    Route::resource('acara', AcaraController::class);
+    
+});
+
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
+    //Route CRUD BERITA
+   
 
     Route::get('/dokumen', [DokumenController::class, 'index'])->name('dokumen');
     Route::post('/dokumen', [DokumenController::class, 'store'])->name('rps.store');
@@ -130,8 +137,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/program-content/{key}/edit', [ProgramContentController::class, 'edit'])->name('program-content.edit');
     Route::put('/program-content/{key}', [ProgramContentController::class, 'update'])->name('program-content.update');
 
-    //Route CRUD ACARA
-    Route::resource('acara', AcaraController::class);
+    
     //Route CRUD DOSEN
     Route::resource('dosen', DosenController::class);
 });

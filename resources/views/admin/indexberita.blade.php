@@ -35,8 +35,8 @@
                         <td>{{ $berita->judul }}</td>
                         <td>{{ $berita->created_at->format('d M Y') }}</td>
                         <td class="text-center">
-                            <a href="{{ route('admin.berita.edit', $berita) }}" class="btn btn-sm btn-warning">Edit</a>
-                            <form action="{{ route('admin.berita.destroy', $berita) }}" method="POST" class="d-inline">
+                            <a href="{{ route('berita.edit', $berita) }}" class="btn btn-sm btn-warning">Edit</a>
+                            <form action="{{ route('berita.destroy', $berita) }}" method="POST" class="d-inline">
                                 @csrf @method('DELETE')
                                 <button class="btn btn-sm btn-danger" onclick="return confirm('Hapus berita ini?')">Hapus</button>
                             </form>
@@ -58,7 +58,7 @@
 <div class="modal fade" id="tambahBeritaModal" tabindex="-1" aria-labelledby="tambahBeritaLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form action="{{ route('admin.berita.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('berita.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-header bg-primary text-white">
                     <h5 class="modal-title" id="tambahBeritaLabel">Tambah Berita</h5>

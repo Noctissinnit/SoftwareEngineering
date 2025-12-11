@@ -37,7 +37,7 @@
                                 onclick="openEditModal({{ $berita->id }}, '{{ addslashes($berita->judul) }}', '{{ addslashes($berita->isi) }}')">
                                 Edit
                             </button>
-                            <form action="{{ route('admin.berita.destroy', $berita) }}" method="POST" class="d-inline">
+                            <form action="{{ route('berita.destroy', $berita) }}" method="POST" class="d-inline">
                                 @csrf @method('DELETE')
                                 <button class="btn btn-sm btn-danger" onclick="return confirm('Hapus berita ini?')">Hapus</button>
                             </form>
@@ -110,7 +110,7 @@
     // Fungsi untuk membuka modal tambah berita
     function openTambahModal() {
         const form = document.getElementById('beritaForm');
-        form.action = "{{ route('admin.berita.store') }}";
+        form.action = "{{ route('berita.store') }}";
         document.getElementById('methodField').value = 'POST';
         document.getElementById('beritaModalLabel').textContent = 'Tambah Berita';
         form.reset();

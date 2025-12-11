@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Dosen;
 use App\Models\User;
 
@@ -14,8 +16,13 @@ class DosenController extends Controller
 
     public function index()
     {
-        $dosens = User::role('dosen')->get();
-        return view('dosen.dashboard', compact('dosens'));
+        $user = Auth::user();
+        $mahasiswaCount = \App\Models\User::whereHas('roles', function($q){ $q->where('name','mahasiswa'); })->count();
+        $portfolioCount = \App\Models\Portfolio::count();
+        $recentPortfolios = \App\Models\Portfolio::latest()->take(6)->get();
+        $recentBerita = \App\Models\Berita::latest()->take(5)->get();
+
+        return view('dosen.dashboard', compact('user','mahasiswaCount','portfolioCount','recentPortfolios','recentBerita'));
     }
 
     public function indexAdmin()
@@ -106,8 +113,8 @@ class DosenController extends Controller
         // Simpan foto baru jika ada
         if ($request->hasFile('photo')) {
             // Hapus foto lama jika ada
-            if ($dosen->photo && \Storage::disk('public')->exists($dosen->photo)) {
-                \Storage::disk('public')->delete($dosen->photo);
+            if ($dosen->photo && Storage::disk('public')->exists($dosen->photo)) {
+                Storage::disk('public')->delete($dosen->photo);
             }
 
             $photoPath = $request->file('photo')->store('dosen', 'public');
@@ -134,8 +141,8 @@ class DosenController extends Controller
     public function destroy(User $dosen)
     {
         // hapus foto jika ada
-        if ($dosen->photo && \Storage::disk('public')->exists($dosen->photo)) {
-            \Storage::disk('public')->delete($dosen->photo);
+        if ($dosen->photo && Storage::disk('public')->exists($dosen->photo)) {
+            Storage::disk('public')->delete($dosen->photo);
         }
         $dosen->delete();
         return redirect()->route('admin.profildosen')->with('success', 'Profil dosen berhasil dihapus');

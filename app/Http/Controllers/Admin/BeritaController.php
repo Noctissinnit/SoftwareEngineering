@@ -12,7 +12,7 @@ class BeritaController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'role:admin'])->except(['index', 'show']);
+        $this->middleware(['auth', 'role:admin|dosen'])->except(['index', 'show']);
     }
 
     // Semua user bisa lihat daftar berita

@@ -360,12 +360,12 @@
                                     </a>
                                 </li>
                  <li>
-                    <a class="nav-link {{ request()->routeIs('admin.berita.index') ? 'active' : '' }}" href="{{ route('admin.berita.index') }}" data-bs-toggle="tooltip" data-bs-placement="right" title="Berita">
+                    <a class="nav-link {{ request()->routeIs('berita.index') ? 'active' : '' }}" href="{{ route('berita.index') }}" data-bs-toggle="tooltip" data-bs-placement="right" title="Berita">
                         <i class="bi bi-newspaper"></i> <span class="nav-text">Berita</span>
                     </a>
                 </li>
                 <li>
-                    <a class="nav-link {{ request()->routeIs('acara.index') ? 'active' : '' }}" href="{{ route('admin.acara.index') }}" data-bs-toggle="tooltip" data-bs-placement="right" title="Acara">
+                    <a class="nav-link {{ request()->routeIs('acara.*') ? 'active' : '' }}" href="{{ route('acara.index') }}" data-bs-toggle="tooltip" data-bs-placement="right" title="Acara">
                     <i class="bi bi-newspaper"></i> <span class="nav-text">Acara</span>
                     </a>
                 </li>
@@ -392,7 +392,7 @@
                 </li>
 
                  <li>
-                    <a class="nav-link {{ request()->routeIs('admin.berita.index') ? 'active' : '' }}" href="{{ route('admin.berita.index') }}" data-bs-toggle="tooltip" data-bs-placement="right" title="Berita">
+                    <a class="nav-link {{ request()->routeIs('berita.index') ? 'active' : '' }}" href="{{ route('berita.index') }}" data-bs-toggle="tooltip" data-bs-placement="right" title="Berita">
                         <i class="bi bi-newspaper"></i> <span class="nav-text">Berita</span>
                     </a>
                 </li>
