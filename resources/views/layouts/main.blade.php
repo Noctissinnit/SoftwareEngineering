@@ -199,7 +199,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{{route('dokumen')}}">Dokumen</a></li>
-                            <li><a class="dropdown-item" href="{{route('rps-index')}}">RPS</a></li>
+                            <li><a class="dropdown-item" href="{{route('rps-index')}}">Mata Kuliah</a></li>
                         </ul>
                     </li>
 

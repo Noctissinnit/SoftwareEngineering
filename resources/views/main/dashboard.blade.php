@@ -169,7 +169,7 @@
             </div>
 
             <div class="col-md-6 text-center">
-                <img src="{{ asset('images/newrpl.png') }}" alt="Hero Image">
+                <img src="{{ asset('images/logorplnew.png') }}" alt="Hero Image">
             </div>
 
         </div>
