@@ -1,24 +1,22 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid px-4 py-4">
+<div class="container mt-4 admin-page">
+
+    <x-admin-header :title="'Profil ' . $user->name" :subtitle="'Lihat informasi pengguna dan portofolionya'" />
 
     {{-- Card Profil --}}
-    <div class="card border-0 shadow-sm mb-4" style="border-radius: 12px;">
+    <div class="admin-card mb-4">
 
-        <div class="card-header text-white" 
-             style="background: #0a33bb; border-radius: 12px 12px 0 0;">
-            <h5 class="mb-0">Profil {{ $user->name }}</h5>
-        </div>
-
-        <div class="card-body d-flex align-items-center" style="background: #fff;">
+        <div class="d-flex align-items-center">
 
             {{-- Foto Profil --}}
             <img src="{{ $user->profile_photo 
                     ? asset('storage/' . $user->profile_photo)
                     :  asset('images/se.png') }}"
                 class="rounded-circle shadow-sm"
-                width="120" height="120">
+                width="120" height="120"
+                style="object-fit: cover;">
 
             {{-- Detail --}}
             <div class="ms-4">
@@ -36,39 +34,34 @@
     </div>
 
     {{-- Card Portofolio --}}
-    <div class="card border-0 shadow-sm" style="border-radius: 12px;">
+    <div class="admin-card">
         
-        <div class="card-header bg-white" style="border-radius: 12px 12px 0 0;">
-            <h5 class="mb-0 fw-bold">Portofolio</h5>
-        </div>
+        <h5 class="fw-bold mb-4">Portofolio</h5>
 
-        <div class="card-body" style="background: #FAFBFC; border-radius: 0 0 12px 12px;">
+        @forelse($user->portfolios as $portfolio)
+            <div class="p-3 bg-light rounded shadow-sm mb-3">
 
-            @forelse($user->portfolios as $portfolio)
-                <div class="p-3 bg-white rounded shadow-sm mb-3">
+                <h5 class="fw-bold mb-1">{{ $portfolio->title }}</h5>
+                <p class="text-secondary">{{ $portfolio->description }}</p>
 
-                    <h5 class="fw-bold mb-1">{{ $portfolio->title }}</h5>
-                    <p class="text-secondary">{{ $portfolio->description }}</p>
+                @if($portfolio->image)
+                    <img src="{{ asset('storage/' . $portfolio->image) }}"
+                        class="img-fluid rounded mb-3" width="260"
+                        style="object-fit: cover;">
+                @endif
 
-                    @if($portfolio->image)
-                        <img src="{{ asset('storage/' . $portfolio->image) }}"
-                            class="img-fluid rounded mb-3" width="260">
-                    @endif
+                @if($portfolio->link)
+                    <a href="{{ $portfolio->link }}" 
+                       target="_blank" 
+                       class="btn btn-primary btn-sm px-3">
+                        Kunjungi Link
+                    </a>
+                @endif
 
-                    @if($portfolio->link)
-                        <a href="{{ $portfolio->link }}" 
-                           target="_blank" 
-                           class="btn btn-primary btn-sm px-3">
-                            Kunjungi Link
-                        </a>
-                    @endif
-
-                </div>
-            @empty
-                <p class="text-muted">Belum ada portofolio</p>
-            @endforelse
-
-        </div>
+            </div>
+        @empty
+            <p class="text-muted">Belum ada portofolio</p>
+        @endforelse
 
     </div>
 

@@ -1,10 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mt-4">
+<div class="container mt-4 admin-page">
+
+    <x-admin-header :title="'Profil & Portofolio'" :subtitle="'Lihat informasi profil dan daftar portofolio Anda'" />
 
     {{-- Profile Card --}}
-    <div class="card mb-4">
+    <div class="admin-card mb-4">
         <div class="card-header bg-primary text-white">
             <h5>Profil Saya</h5>
         </div>
@@ -19,7 +21,7 @@
     </div>
 
     {{-- Portfolio List --}}
-    <div class="card">
+    <div class="admin-card">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h5>Portofolio Saya</h5>
             <a href="{{ route('profile.portfolio.create') }}" class="btn btn-primary btn-sm">+ Tambah</a>

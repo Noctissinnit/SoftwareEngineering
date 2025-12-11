@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container py-4">
+<div class="container mt-4 admin-page">
 
-    <h3 class="fw-bold mb-4">Edit Portofolio</h3>
+    <x-admin-header :title="'Edit Portofolio'" :subtitle="'Perbarui data portofolio'" />
 
-    <div class="card shadow-sm border-0">
+    <div class="admin-card">
         <div class="card-body">
 
             <form action="{{ route('admin.portfolio.update', $portfolio->id) }}" method="POST" enctype="multipart/form-data">
@@ -74,6 +74,5 @@
 
         </div>
     </div>
-
 </div>
 @endsection

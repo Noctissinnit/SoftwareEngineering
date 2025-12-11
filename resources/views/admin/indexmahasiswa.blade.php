@@ -1,99 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-<style>
-    body {
-        background-color: #f4f6f9;
-    }
 
-    .card {
-        border: none;
-        border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
+<div class="container-fluid admin-page">
 
-    .card-header {
-        background-color: #0d6efd;
-        color: white;
-        font-weight: 600;
-        border-radius: 12px 12px 0 0;
-    }
-
-    .nav-tabs {
-        border: none;
-        background-color: #fff;
-        padding: 8px;
-        border-radius: 10px;
-        box-shadow: 0 1px 5px rgba(0,0,0,0.05);
-        justify-content: flex-start;
-    }
-
-    .nav-tabs .nav-link {
-        border: none;
-        color: #555;
-        font-weight: 500;
-        border-radius: 6px;
-        transition: all 0.2s ease;
-    }
-
-    .nav-tabs .nav-link.active {
-        background-color: #0d6efd;
-        color: white;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-    }
-
-    .table {
-        background-color: white;
-        border-radius: 10px;
-        overflow: hidden;
-    }
-
-    .table thead {
-        background-color: #0d6efd;
-        color: white;
-        text-align: center;
-    }
-
-    .table tbody tr:hover {
-        background-color: #f1f5ff;
-        transition: 0.2s;
-    }
-
-    .table th, .table td {
-        vertical-align: middle !important;
-    }
-
-    .btn-action {
-        padding: 4px 8px;
-        border-radius: 6px;
-        font-size: 0.85rem;
-    }
-
-    .foto-mahasiswa {
-        width: 45px;
-        height: 45px;
-        object-fit: cover;
-        border-radius: 50%;
-        border: 2px solid #ddd;
-    }
-
-    .mahasiswa-header h1 {
-        font-size: 2rem;
-    }
-</style>
-
-<div class="container py-4 mahasiswa-container">
-
-    {{-- Judul Halaman --}}
-    <div class="mahasiswa-header mb-5">
-        <h1 class="fw-bold text-primary">
-            <i class="bi bi-people-fill me-2"></i>Mahasiswa dan Mahasiswi
-        </h1>
-        <p class="text-muted mb-0">Program Studi Software Engineering - Universitas Pignatelli Triputra</p>
-    </div>
+    @include('admin._header', [
+        'title' => '<i class="bi bi-people-fill me-2"></i>Mahasiswa dan Mahasiswi',
+        'subtitle' => 'Kelola data mahasiswa dan import dari Excel'
+    ])
 
     {{-- Form Tambah & Import --}}
-    <div class="card mb-4">
+    <div class="card mb-4 admin-card">
         <div class="card-header d-flex justify-content-between align-items-center">
             <span><i class="bi bi-person-plus me-2"></i>Tambah Mahasiswa</span>
             <form action="{{ route('admin.mahasiswa.import') }}" method="POST" enctype="multipart/form-data" class="d-flex align-items-center">
@@ -163,7 +80,7 @@
         <div class="tab-content">
             @foreach ($mahasiswas as $angkatan => $list)
                 <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="angkatan{{ $angkatan }}" role="tabpanel">
-                    <div class="card">
+                    <div class="card admin-card">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <span><i class="bi bi-list-check me-2"></i>Daftar Mahasiswa - Angkatan {{ $angkatan }}</span>
                             <span class="badge bg-light text-dark">{{ count($list) }} Mahasiswa</span>

@@ -1,10 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mt-4">
-    <h4>Tambah Gambar</h4>
+<div class="container mt-4 admin-page">
 
-    <form action="{{ route('admin.galeri.store') }}" method="POST" enctype="multipart/form-data">
+    <x-admin-header :title="'Tambah Gambar'" :subtitle="'Upload gambar baru untuk galeri'" />
+
+    <div class="admin-card">
+        <form action="{{ route('admin.galeri.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="mb-3">
@@ -23,6 +25,7 @@
         </div>
 
         <button class="btn btn-primary">Simpan</button>
-    </form>
+        </form>
+    </div>
 </div>
 @endsection

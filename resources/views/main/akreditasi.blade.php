@@ -67,7 +67,7 @@
 {{-- Header --}}
 <section class="page-title-section">
     <div class="container">
-        <h1>{{ $content->title ?? 'Visi & Misi' }}</h1>
+        <h1>{{ $content->title ?? 'Akreditasi' }}</h1>
         <p>Program Studi Software Engineering<br>Universitas Pignatelli Triputra</p>
     </div>
 </section>

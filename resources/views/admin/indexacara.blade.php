@@ -1,100 +1,15 @@
 @extends('layouts.app')
 @section('content')
 
-<style>
-    /* === Custom Admin Table Style === */
-    body {
-        background-color: #f4f6f9;
-    }
+<div class="container-fluid admin-page">
 
-    .card {
-        border: none;
-        border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-
-    .card-header {
-        background-color: #0d6efd;
-        color: white;
-        font-weight: 600;
-        letter-spacing: 0.5px;
-        border-radius: 12px 12px 0 0;
-    }
-
-    .table {
-        border-radius: 10px;
-        overflow: hidden;
-        background-color: white;
-    }
-
-    .table thead {
-        background-color: #0d6efd;
-        color: white;
-        text-align: center;
-    }
-
-    .table tbody tr:hover {
-        background-color: #f1f4ff;
-        transition: 0.2s;
-    }
-
-    .btn-action {
-        padding: 5px 8px;
-        border-radius: 6px;
-        font-size: 0.85rem;
-        transition: 0.2s;
-    }
-
-    .btn-action:hover {
-        transform: scale(1.08);
-    }
-
-    .modal-content {
-        border-radius: 12px;
-        box-shadow: 0 5px 25px rgba(0,0,0,0.15);
-    }
-
-    .nav-tabs {
-        background-color: white;
-        border-radius: 10px;
-        padding: 5px;
-    }
-
-    .nav-tabs .nav-link {
-        border: none;
-        color: #333;
-        font-weight: 500;
-        border-radius: 8px;
-        transition: all 0.3s ease;
-    }
-
-    .nav-tabs .nav-link.active {
-        background-color: #0d6efd;
-        color: white;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-
-    .table th, .table td {
-        vertical-align: middle !important;
-    }
-
-    .table th {
-        font-size: 0.95rem;
-    }
-</style>
-
-<div class="container-fluid py-4">
-
-    <h1 class="mb-4 fw-bold text-primary">
-        <i class="bi bi-newspaper me-2"></i> Berita Software Engineering UPITRA
-    </h1>
-
-    {{-- Tombol Tambah Berita --}}
-    <div class="text-end mb-3">
-         <button id="btnTambahBerita" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTambahAcara">
-            <i class="bi bi-plus-lg"></i> Tambah Acara
-        </button>
-    </div>
+    @include('admin._header', [
+        'title' => '<i class="bi bi-newspaper me-2"></i> Acara',
+        'subtitle' => 'Kelola berita, acara, dan informasi program studi',
+        'actions' => [
+            ['url' => '#', 'label' => 'Tambah Acara', 'class' => 'btn-primary', 'icon' => 'bi-plus-lg', 'attributes' => 'id="btnTambahBerita" data-bs-toggle="modal" data-bs-target="#modalTambahAcara"'],
+        ]
+    ])
 
     {{-- Tab Navigasi --}}
     <ul class="nav nav-tabs mb-4" id="beritaTab" role="tablist">

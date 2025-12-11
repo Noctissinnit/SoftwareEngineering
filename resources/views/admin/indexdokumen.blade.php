@@ -1,119 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-<style>
-    body {
-        background-color: #f4f6f9;
-    }
 
-    .card {
-        border: none;
-        border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
+<div class="container-fluid admin-page">
 
-    .card-header {
-        background-color: #0d6efd;
-        color: white;
-        font-weight: 600;
-        border-radius: 12px 12px 0 0;
-    }
-
-    .nav-tabs {
-        border: none;
-        background-color: #fff;
-        padding: 8px;
-        border-radius: 10px;
-        box-shadow: 0 1px 5px rgba(0,0,0,0.05);
-        justify-content: flex-start; /* 🔹 align tab ke kiri */
-    }
-
-    .nav-tabs .nav-link {
-        border: none;
-        color: #555;
-        font-weight: 500;
-        border-radius: 6px;
-        transition: all 0.2s ease;
-    }
-
-    .nav-tabs .nav-link.active {
-        background-color: #0d6efd;
-        color: white;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-    }
-
-    .table {
-        background-color: white;
-        border-radius: 10px;
-        overflow: hidden;
-    }
-
-    .table thead {
-        background-color: #0d6efd;
-        color: white;
-        text-align: center;
-    }
-
-    .table tbody tr:hover {
-        background-color: #f1f5ff;
-        transition: 0.2s;
-    }
-
-    .btn-action {
-        padding: 4px 8px;
-        border-radius: 6px;
-        font-size: 0.85rem;
-    }
-
-    .btn-action i {
-        vertical-align: middle;
-    }
-
-    .table th, .table td {
-        vertical-align: middle !important;
-    }
-
-    .form-control {
-        border-radius: 8px;
-    }
-
-    .btn-primary {
-        border-radius: 8px;
-    }
-
-    /* 🔹 Tambahan untuk rata kiri semua konten */
-    .rps-container {
-        max-width: 100%;
-        text-align: left;
-    }
-
-    .rps-header {
-        text-align: left;
-    }
-
-    .rps-header h1 {
-        font-size: 2rem;
-    }
-
-    .rps-header p {
-        margin-left: 3px;
-    }
-</style>
-
-<div class="container py-4 rps-container">
-
-    {{-- Judul Halaman --}}
-    <div class="rps-header mb-5">
-        <h1 class="fw-bold text-primary">
-            <i class="bi bi-journal-bookmark me-2"></i>Daftar Mata Kuliah
-        </h1>
-        <p class="text-muted mb-0">Program Studi Software Engineering - Universitas Pignatelli Triputra</p>
-    </div>
+    @include('admin._header', [
+        'title' => '<i class="bi bi-journal-bookmark me-2"></i>Daftar Mata Kuliah',
+        'subtitle' => 'Program Studi Software Engineering - Universitas Pignatelli Triputra',
+    ])
 
     {{-- Form Tambah RPS --}}
-    <div class="card mb-4">
-        
-        <div class="card-header">
+    <div class="card mb-4 admin-card">
+        <div class="card-header bg-primary text-white">
             <i class="bi bi-plus-circle me-2"></i>Tambah Mata Kuliah
         </div>
         <div class="card-body">
@@ -161,7 +59,7 @@
 
         @for ($i = 1; $i <= 8; $i++)
             <div class="tab-pane fade {{ $i == 1 ? 'show active' : '' }}" id="semester{{ $i }}" role="tabpanel" aria-labelledby="semester{{ $i }}-tab">
-                <div class="card">
+                <div class="card admin-card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <span><i class="bi bi-list-check me-2"></i>Daftar Mata Kuliah - Semester {{ $i }}</span>
                         <span class="badge bg-light text-dark">{{ count($rps[$i] ?? []) }} Mata Kuliah</span>

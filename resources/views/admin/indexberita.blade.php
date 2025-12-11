@@ -1,13 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container my-5">
-    <h1 class="fw-bold text-primary mb-4">Kelola Berita</h1>
 
-    {{-- Tombol Tambah Berita --}}
-    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#tambahBeritaModal">
-        + Tambah Berita
-    </button>
+<div class="container-fluid admin-page">
+
+    @include('admin._header', [
+        'title' => '<i class="bi bi-newspaper me-2"></i>Kelola Berita',
+        'subtitle' => 'Tambahkan, edit, dan hapus berita program studi',
+        'actions' => [
+            ['url' => '#tambahBeritaModal', 'label' => '+ Tambah Berita', 'class' => 'btn-primary', 'icon' => 'bi-plus-lg']
+        ]
+    ])
 
     {{-- Pesan sukses --}}
     @if(session('success'))
@@ -15,7 +18,7 @@
     @endif
 
     {{-- Tabel Daftar Berita --}}
-    <div class="card">
+    <div class="card admin-card">
         <div class="card-header bg-secondary text-white">Daftar Berita</div>
         <div class="card-body p-0">
             <table class="table table-striped mb-0">
@@ -48,6 +51,7 @@
             </table>
         </div>
     </div>
+
 </div>
 
 {{-- Modal Tambah Berita --}}

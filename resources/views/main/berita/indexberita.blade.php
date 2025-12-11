@@ -101,7 +101,7 @@
 
         <div class="gallery-grid">
 
-            @foreach ($galeri as $item)
+            @foreach ($beritas as $item)
                 <div class="gallery-item">
 
                     <div class="gallery-card">

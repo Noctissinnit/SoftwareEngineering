@@ -27,11 +27,10 @@
                 left: 0;
                 display: flex;
                 flex-direction: column;
-                box-shadow: 2px 0 10px rgba(0,0,0,0.15);
-                transition: all 0.3s ease;
+                box-shadow: 2px 0 18px rgba(2,43,108,0.35);
+                transition: all 0.28s cubic-bezier(.2,.9,.3,1);
                 z-index: 200;
 
-                /* Tambahkan ini */
                 overflow-y: auto;
                 overflow-x: hidden;
             }
@@ -42,9 +41,13 @@
         }
 
         .sidebar-header {
-            padding: 25px 20px;
+            padding: 18px 14px;
             text-align: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: space-between;
         }
 
         .sidebar-header img {
@@ -63,15 +66,43 @@
 
         .sidebar-header h4 {
             font-weight: 700;
-            margin-top: 12px;
+            margin: 0 0 0 6px;
             color: #FFD700;
-            font-size: 1.1rem;
-            letter-spacing: 0.5px;
+            font-size: 1rem;
+            letter-spacing: 0.4px;
         }
+        .sidebar-toggle-small {
+            background: transparent;
+            border: none;
+            color: rgba(255,255,255,0.95);
+            font-size: 1.15rem;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 6px;
+            transition: background 0.18s;
+        }
+        .sidebar-toggle-small:hover { background: rgba(255,255,255,0.05); }
         .sidebar nav {
             overflow-y: auto;
             flex-grow: 1;
         }
+
+        /* Search input */
+        .sidebar-search {
+            padding: 10px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .sidebar-search input {
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            font-size: 0.95rem;
+            background: rgba(255,255,255,0.06);
+            color: #fff;
+        }
+        .sidebar-search input::placeholder { color: rgba(255,255,255,0.6); }
 
         .sidebar nav ul {
             list-style: none;
@@ -86,11 +117,12 @@
         .nav-link {
             color: #dbe2ef;
             font-weight: 500;
-            padding: 12px 25px;
+            padding: 10px 20px;
             display: flex;
             align-items: center;
+            gap: 10px;
             border-left: 4px solid transparent;
-            transition: all 0.25s ease;
+            transition: all 0.22s cubic-bezier(.2,.9,.3,1);
             white-space: nowrap;
         }
 
@@ -108,6 +140,9 @@
             font-size: 1.2rem;
             opacity: 0.9;
         }
+
+        .nav-link .nav-text { flex: 1; }
+        .nav-link .nav-badge { font-size: 0.72rem; background: rgba(255,255,255,0.08); color: #fff; padding: 2px 8px; border-radius: 999px; }
 
         .sidebar.collapsed .nav-link i {
             margin-right: 0;
@@ -249,6 +284,20 @@
                 margin-left: 0;
             }
         }
+        /* Global admin page helpers */
+        .admin-page {
+            padding: 1.25rem 1.5rem;
+        }
+        .admin-header { margin-bottom: 1.75rem; }
+        .admin-header h1 { color: #0d6efd; font-weight:700; font-size:1.4rem; margin:0; }
+        .admin-header p { color: #6c757d; margin:0.25rem 0 0; }
+
+        .admin-stats .card { border-radius:12px; box-shadow:0 6px 18px rgba(2,43,108,0.06); border:none; }
+        .admin-stats .icon-box { width:56px;height:56px;border-radius:10px;background:#e8f0ff;color:#0d6efd;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto 8px; }
+        .admin-card { border-radius:12px; box-shadow:0 6px 18px rgba(2,43,108,0.04); border:none; }
+        .admin-card .card-title { color:#0d6efd; font-weight:600; }
+        .admin-actions { display:flex; gap:8px; align-items:center; }
+        .admin-page .table thead { background:#fff; }
     </style>
 </head>
 
@@ -257,92 +306,99 @@
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <img src="{{ asset('images/se.png') }}" alt="Logo">
-            <h4>Dashboard SE</h4>
-        </div>
+                <div class="d-flex align-items-center">
+                    <img src="{{ asset('images/se.png') }}" alt="Logo">
+                    <h4>Dashboard SE</h4>
+                </div>
+                <button id="sidebarToggleSmall" class="sidebar-toggle-small" title="Toggle sidebar" aria-label="Toggle sidebar"><i class="bi bi-chevron-left"></i></button>
+            </div>
+
+            <div class="sidebar-search">
+                <input id="sidebarSearch" type="text" placeholder="Cari menu..." aria-label="Cari menu" />
+            </div>
 
         <nav class="mt-3 flex-grow-1">
             <ul class="nav flex-column">
                 @role('admin')
                 <li>
-                    <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
-                        <i class="bi bi-speedometer2"></i> <span>Dashboard</span>
+                    <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}" data-bs-toggle="tooltip" data-bs-placement="right" title="Dashboard">
+                        <i class="bi bi-speedometer2"></i> <span class="nav-text">Dashboard</span>
                     </a>
                 </li>
                    <li>
-                    <a class="nav-link {{ request()->routeIs('admin.dokumen') ? 'active' : '' }}" href="{{ route('admin.dokumen') }}">
-                        <i class="bi bi-folder2-open"></i> <span>Dokumen</span>
+                    <a class="nav-link {{ request()->routeIs('admin.dokumen') ? 'active' : '' }}" href="{{ route('admin.dokumen') }}" data-bs-toggle="tooltip" data-bs-placement="right" title="Dokumen">
+                        <i class="bi bi-folder2-open"></i> <span class="nav-text">Dokumen</span>
                     </a>
                 </li>
 
                 <li>
-                    <a class="nav-link {{ request()->routeIs('admin.mahasiswa') ? 'active' : '' }}" href="{{ route('admin.mahasiswa') }}">
-                        <i class="bi bi-people-fill"></i> <span>Mahasiswa</span>
+                    <a class="nav-link {{ request()->routeIs('admin.mahasiswa') ? 'active' : '' }}" href="{{ route('admin.mahasiswa') }}" data-bs-toggle="tooltip" data-bs-placement="right" title="Mahasiswa">
+                        <i class="bi bi-people-fill"></i> <span class="nav-text">Mahasiswa</span>
                     </a>
                 </li>
                 <li>
-                    <a class="nav-link {{ request()->routeIs('admin.profildosen') ? 'active' : '' }}" href="{{ route('admin.profildosen') }}">
-                        <i class="bi bi-person-badge-fill"></i> <span>Profil Dosen</span>
+                    <a class="nav-link {{ request()->routeIs('admin.profildosen') ? 'active' : '' }}" href="{{ route('admin.profildosen') }}" data-bs-toggle="tooltip" data-bs-placement="right" title="Profil Dosen">
+                        <i class="bi bi-person-badge-fill"></i> <span class="nav-text">Profil Dosen</span>
                     </a>
                 </li>
                  <li>
-                    <a class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}"
-                    href="{{ route('users.index') }}">
+                    <a class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}" href="{{ route('users.index') }}" data-bs-toggle="tooltip" data-bs-placement="right" title="Daftar User (Portofolio)">
                         <i class="bi bi-folder2-open"></i> 
-                        <span>Daftar User(Portofolio)</span>
+                        <span class="nav-text">Daftar User (Portofolio)</span>
                     </a>
                 </li>
-                  <li>
-                    <a class="nav-link {{ request()->routeIs('admin.galeri.index') ? 'active' : '' }}"
-                    href="{{ route('admin.galeri.index') }}">
-                        <i class="bi bi-images"></i>
-                        <span>Galeri</span>
-                    </a>
-                </li>
+                                    <li>
+                                        <a class="nav-link {{ request()->routeIs('admin.galeri.index') ? 'active' : '' }}" href="{{ route('admin.galeri.index') }}" data-bs-toggle="tooltip" data-bs-placement="right" title="Galeri">
+                                                <i class="bi bi-images"></i>
+                                                <span class="nav-text">Galeri</span>
+                                        </a>
+                                </li>
+                                <li>
+                                    <a class="nav-link {{ request()->routeIs('admin.program-content.index') ? 'active' : '' }}" href="{{ route('admin.program-content.index') }}" data-bs-toggle="tooltip" data-bs-placement="right" title="Konten Program Studi">
+                                            <i class="bi bi-file-earmark-text"></i>
+                                            <span class="nav-text">Konten Prodi</span>
+                                    </a>
+                                </li>
                  <li>
-                    <a class="nav-link {{ request()->routeIs('admin.berita.index') ? 'active' : '' }}" href="{{ route('admin.berita.index') }}">
-                        <i class="bi bi-newspaper"></i> <span>Berita</span>
+                    <a class="nav-link {{ request()->routeIs('admin.berita.index') ? 'active' : '' }}" href="{{ route('admin.berita.index') }}" data-bs-toggle="tooltip" data-bs-placement="right" title="Berita">
+                        <i class="bi bi-newspaper"></i> <span class="nav-text">Berita</span>
                     </a>
                 </li>
                 <li>
-                    <a class="nav-link {{ request()->routeIs('acara.index') ? 'active' : '' }}"
-                    href="{{ route('admin.acara.index') }}">
-                    <i class="bi bi-newspaper"></i> <span>Acara</span>
+                    <a class="nav-link {{ request()->routeIs('acara.index') ? 'active' : '' }}" href="{{ route('admin.acara.index') }}" data-bs-toggle="tooltip" data-bs-placement="right" title="Acara">
+                    <i class="bi bi-newspaper"></i> <span class="nav-text">Acara</span>
                     </a>
                 </li>
 
                 <li>
-                    <a class="nav-link {{ request()->routeIs('admin.portfolio.index') ? 'active' : '' }}"
-                    href="{{ route('admin.portfolio.index') }}">
+                    <a class="nav-link {{ request()->routeIs('admin.portfolio.index') ? 'active' : '' }}" href="{{ route('admin.portfolio.index') }}" data-bs-toggle="tooltip" data-bs-placement="right" title="Portofolio">
                         <i class="bi bi-folder2-open"></i> 
-                        <span>Portofolio</span>
+                        <span class="nav-text">Portofolio</span>
                     </a>
                 </li>         
                 @endrole
 
                 @role('dosen')
                 <li>
-                    <a class="nav-link {{ request()->routeIs('dosen.dashboard') ? 'active' : '' }}" href="{{ route('dosen.dashboard') }}">
-                        <i class="bi bi-speedometer2"></i> <span>Dashboard</span>
+                    <a class="nav-link {{ request()->routeIs('dosen.dashboard') ? 'active' : '' }}" href="{{ route('dosen.dashboard') }}" data-bs-toggle="tooltip" data-bs-placement="right" title="Dashboard Dosen">
+                        <i class="bi bi-speedometer2"></i> <span class="nav-text">Dashboard</span>
                     </a>
                 </li>
                 <li>
-                    <a class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}"
-                    href="{{ route('users.index') }}">
+                    <a class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}" href="{{ route('users.index') }}" data-bs-toggle="tooltip" data-bs-placement="right" title="Daftar User (Portofolio)">
                         <i class="bi bi-folder2-open"></i> 
-                        <span>Daftar User(Portofolio)</span>
+                        <span class="nav-text">Daftar User (Portofolio)</span>
                     </a>
                 </li>
 
                  <li>
-                    <a class="nav-link {{ request()->routeIs('admin.berita.index') ? 'active' : '' }}" href="{{ route('admin.berita.index') }}">
-                        <i class="bi bi-newspaper"></i> <span>Berita</span>
+                    <a class="nav-link {{ request()->routeIs('admin.berita.index') ? 'active' : '' }}" href="{{ route('admin.berita.index') }}" data-bs-toggle="tooltip" data-bs-placement="right" title="Berita">
+                        <i class="bi bi-newspaper"></i> <span class="nav-text">Berita</span>
                     </a>
                 </li>
                 <li>
-                    <a class="nav-link {{ request()->routeIs('acara.index') ? 'active' : '' }}"
-                    href="{{ route('acara.index') }}">
-                    <i class="bi bi-newspaper"></i> <span>Acara</span>
+                    <a class="nav-link {{ request()->routeIs('acara.index') ? 'active' : '' }}" href="{{ route('acara.index') }}" data-bs-toggle="tooltip" data-bs-placement="right" title="Acara">
+                    <i class="bi bi-newspaper"></i> <span class="nav-text">Acara</span>
                     </a>
                 </li>
                 @endrole
@@ -350,10 +406,9 @@
               
                 @role('mahasiswa')
                  <li>
-                    <a class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}"
-                    href="{{ route('users.index') }}">
+                    <a class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}" href="{{ route('users.index') }}" data-bs-toggle="tooltip" data-bs-placement="right" title="Daftar User (Portofolio)">
                         <i class="bi bi-folder2-open"></i> 
-                        <span>Daftar User(Portofolio)</span>
+                        <span class="nav-text">Daftar User (Portofolio)</span>
                     </a>
                 </li>
                 @endrole
@@ -413,20 +468,56 @@
 
     <script>
         const toggleBtn = document.getElementById('toggleBtn');
+        const sidebarToggleSmall = document.getElementById('sidebarToggleSmall');
         const sidebar = document.getElementById('sidebar');
         const mainContent = document.getElementById('mainContent');
+        const sidebarSearch = document.getElementById('sidebarSearch');
 
+        // Topbar toggle behavior (desktop: collapse, mobile: show/hide)
         toggleBtn.addEventListener('click', () => {
-            // Untuk desktop
             if (window.innerWidth >= 992) {
                 sidebar.classList.toggle('collapsed');
                 mainContent.classList.toggle('expanded');
-            } 
-            // Untuk mobile
-            else {
+            } else {
                 sidebar.classList.toggle('show');
             }
         });
+
+        // Small toggle inside sidebar (for quick collapse)
+        sidebarToggleSmall.addEventListener('click', () => {
+            sidebar.classList.toggle('collapsed');
+            mainContent.classList.toggle('expanded');
+            const icon = sidebarToggleSmall.querySelector('i');
+            if (sidebar.classList.contains('collapsed')) {
+                icon.className = 'bi bi-chevron-right';
+            } else {
+                icon.className = 'bi bi-chevron-left';
+            }
+        });
+
+        // Initialize bootstrap tooltips for sidebar links
+        document.addEventListener('DOMContentLoaded', function () {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('.nav-link[data-bs-toggle="tooltip"]'));
+            tooltipTriggerList.forEach(function (el) {
+                new bootstrap.Tooltip(el, { container: 'body' });
+            });
+        });
+
+        // Sidebar search/filter
+        if (sidebarSearch) {
+            sidebarSearch.addEventListener('input', function (e) {
+                const q = e.target.value.toLowerCase().trim();
+                document.querySelectorAll('#sidebar nav ul li').forEach(function (li) {
+                    const textEl = li.querySelector('.nav-text');
+                    const text = textEl ? textEl.textContent.toLowerCase() : li.textContent.toLowerCase();
+                    if (!q || text.indexOf(q) !== -1) {
+                        li.style.display = '';
+                    } else {
+                        li.style.display = 'none';
+                    }
+                });
+            });
+        }
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

@@ -1,14 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container py-4">
+<div class="container mt-4 admin-page">
+
+    <x-admin-header :title="'Edit Profil Saya'" :subtitle="'Perbarui informasi profil Anda'" />
+
     <div class="row justify-content-center">
         <div class="col-md-7 col-lg-6">
-            <div class="card shadow-lg border-0 rounded-3">
-                <div class="card-body p-4">
-                    <h3 class="fw-bold text-primary mb-4 text-center">
-                        <i class="bi bi-person-circle me-2"></i> Profil Saya
-                    </h3>
+            <div class="admin-card">
 
                     {{-- Alert Success --}}
                     @if(session('success'))
@@ -66,7 +65,6 @@
                             </button>
                         </div>
                     </form>
-                </div>
             </div>
         </div>
     </div>

@@ -9,8 +9,12 @@ class UserDirectoryController extends Controller
 {
     public function index()
     {
-        // Ambil user terbaru dan paginasi
-        $users = User::orderBy('name')->paginate(12);
+        // Ambil user yang punya portfolio, kecuali yang memiliki role 'admin', lalu paginasi
+        $users = User::whereDoesntHave('roles', function ($q) {
+            $q->where('name', 'admin');
+        })
+          ->orderBy('name')
+          ->paginate(12);
 
         return view('users.index', compact('users'));
     }

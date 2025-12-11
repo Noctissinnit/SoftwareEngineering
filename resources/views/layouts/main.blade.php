@@ -183,7 +183,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{{ route('visi-misi') }}">Visi & Misi</a></li>
-                            <li><a class="dropdown-item" href="{{ route('sejarah-prodi') }}">Sejarah Prodi</a></li>
+                            <li><a class="dropdown-item" href="{{ route('sejarah-prodi') }}">Tujuan Prodi</a></li>
                         </ul>
                     </li>
 

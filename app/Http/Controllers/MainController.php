@@ -6,6 +6,7 @@ use App\Models\Acara;
 use App\Models\Berita;
 use App\Models\Mahasiswa;
 use App\Models\User;
+use App\Models\ProgramContent;
 use Illuminate\Http\Request;
 
 class MainController extends Controller
@@ -51,6 +52,24 @@ class MainController extends Controller
     {
         $acara = Acara::findOrFail($id);
         return view('main.detailacara', compact('acara'));
+    }
+
+    public function visiMisi()
+    {
+        $content = ProgramContent::where('key', 'visi_misi')->first();
+        return view('main.visi-misi', compact('content'));
+    }
+
+    public function tujuan()
+    {
+        $content = ProgramContent::where('key', 'tujuan')->first();
+        return view('main.sejarah-prodi', compact('content'));
+    }
+
+    public function akreditasi()
+    {
+        $content = ProgramContent::where('key', 'akreditasi')->first();
+        return view('main.akreditasi', compact('content'));
     }
 
 }

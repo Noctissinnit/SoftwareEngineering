@@ -1,92 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-<style>
-    body {
-        background-color: #f4f6f9;
-    }
 
-    .card {
-        border: none;
-        border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
+<div class="container-fluid admin-page">
 
-    .card-header {
-        background-color: #0d6efd;
-        color: white;
-        font-weight: 600;
-        border-radius: 12px 12px 0 0;
-    }
-
-    .table {
-        background-color: white;
-        border-radius: 10px;
-        overflow: hidden;
-        width: 100%;
-    }
-
-    .table thead {
-        background-color: #0d6efd;
-        color: white;
-        text-align: left;
-    }
-
-    .table tbody tr:hover {
-        background-color: #f1f5ff;
-        transition: 0.2s;
-    }
-
-    .foto-dosen {
-        width: 55px;
-        height: 55px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 2px solid #ddd;
-        transition: transform 0.2s;
-    }
-
-    .foto-dosen:hover {
-        transform: scale(1.1);
-    }
-
-    .page-header h1 {
-        font-size: 2rem;
-        font-weight: 700;
-        color: #0d6efd;
-    }
-
-    .badge {
-        padding: 6px 10px;
-        border-radius: 6px;
-        font-size: 0.85rem;
-    }
-
-    .btn-add {
-        border-radius: 10px;
-        font-weight: 600;
-    }
-
-    .btn-container {
-        text-align: left;
-    }
-
-    /* 🔹 Full width content tapi tetap ada padding */
-    .content-wrapper {
-        padding: 0 30px;
-    }
-</style>
-
-<div class="container-fluid py-4 content-wrapper">
-
-    {{-- Judul Halaman --}}
-    <div class="page-header mb-3">
-        <h1><i class="bi bi-person-badge me-2"></i>Profil Dosen</h1>
-        <p class="text-muted">Daftar dosen dan kaprodi Program Studi Software Engineering</p>
-    </div>
+    @include('admin._header', [
+        'title' => '<i class="bi bi-person-badge me-2"></i>Profil Dosen',
+        'subtitle' => 'Daftar dosen dan kaprodi Program Studi Software Engineering'
+    ])
 
     {{-- Tombol Tambah --}}
-    <div class="mb-4 btn-container">
+    <div class="mb-4">
         <button class="btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#modalTambahDosen">
             <i class="bi bi-plus-circle me-1"></i> Tambah Dosen
         </button>
@@ -130,7 +54,7 @@
     </div>
 
     {{-- Card Daftar Dosen --}}
-    <div class="card">
+    <div class="card admin-card">
         <div class="card-header">
             <i class="bi bi-list-ul me-2"></i>Daftar Dosen
         </div>

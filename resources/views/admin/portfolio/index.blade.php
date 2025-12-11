@@ -1,20 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container py-4">
+<div class="container mt-4 admin-page">
 
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3 class="fw-bold">Daftar Portofolio</h3>
-        <a href="{{ route('admin.portfolio.create') }}" class="btn btn-primary">
-            <i class="bi bi-plus-circle"></i> Tambah Portofolio
-        </a>
-    </div>
+    @php
+        $actions = [
+            ['url' => route('admin.portfolio.create'), 'label' => '+ Tambah Portofolio', 'class' => 'btn-primary']
+        ];
+    @endphp
+
+    <x-admin-header :title="'Daftar Portofolio'" :subtitle="'Kelola semua portofolio pengguna'" :actions="$actions" />
 
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <div class="card shadow-sm border-0">
+    <div class="admin-card">
         <div class="card-body">
             <table class="table table-bordered table-striped">
                 <thead class="table-light">
@@ -84,6 +85,5 @@
             </table>
         </div>
     </div>
-
 </div>
 @endsection

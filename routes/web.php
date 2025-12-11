@@ -3,6 +3,7 @@
 use App\Http\Controllers\AcaraController;
 use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\DokumenController;
+use App\Http\Controllers\Admin\ProgramContentController;
 
 use App\Http\Controllers\Admin\ProfilDosenController;
 use App\Http\Controllers\AuthController;
@@ -33,8 +34,9 @@ Route::view('/dokumen', 'main.indexdokumen')->name('dokumen');
 Route::get('/mahasiswa', [MainController::class, 'mahasiswa'])->name('mahasiswa');
 Route::view('/pmb', 'main.indexpmb')->name('pmb');
 Route::get('/profildosen', [DosenController::class, 'indexMain'])->name('profildosen');
-Route::view('/sejarah-prodi', 'main.sejarah-prodi')->name('sejarah-prodi');
-Route::view('/visi-misi', 'main.visi-misi')->name('visi-misi');
+Route::get('/sejarah-prodi', [MainController::class, 'tujuan'])->name('sejarah-prodi');
+Route::get('/visi-misi', [MainController::class, 'visiMisi'])->name('visi-misi');
+Route::get('/akreditasi', [MainController::class, 'akreditasi'])->name('akreditasi');
 
 
 Route::get('/galeri', function () {
@@ -122,6 +124,11 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
     //CRUD Portofolio
     Route::resource('portfolio', PortfolioController::class);
+
+    //Program Content (Visi/Misi, Tujuan, Akreditasi)
+    Route::get('/program-content', [ProgramContentController::class, 'index'])->name('program-content.index');
+    Route::get('/program-content/{key}/edit', [ProgramContentController::class, 'edit'])->name('program-content.edit');
+    Route::put('/program-content/{key}', [ProgramContentController::class, 'update'])->name('program-content.update');
 
     //Route CRUD ACARA
     Route::resource('acara', AcaraController::class);
